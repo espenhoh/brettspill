@@ -1,0 +1,7 @@
+#mapper
+.idea
+
+
+Filtyper
+*.pyc
+*.iml
