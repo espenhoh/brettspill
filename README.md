@@ -20,9 +20,12 @@ TODO
 ## Technologies
 * Python - version 3.9.0
 * Django - version 3.1.3
+* MariaDB - version 10.5.8
+    * BrettspillDB
 
 ## Setup
 TODO
+Password for database: Add password.py with a field DB_PASSWORD = 'your_pass' into the same directory as settings.py. This variable will be imported.
 
 ## Code Examples
 Show examples of usage:

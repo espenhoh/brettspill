@@ -1,7 +1,9 @@
 #mapper
 .idea
 
+#Filer
+password.py
 
-Filtyper
+#Filtyper
 *.pyc
 *.iml
