@@ -1,0 +1,4 @@
+CREATE DATABASE BrettspillDB;
+USE BrettspillDB;
+
+SHOW TABLES;
