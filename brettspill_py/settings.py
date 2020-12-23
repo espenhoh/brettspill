@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+# settings.py
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -73,17 +75,13 @@ WSGI_APPLICATION = 'brettspill_py.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-try:
-    from password import DB_PASSWORD
-except ImportError:
-    DB_PASSWORD = ''
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'BrettspillDB',
         'USER': 'root',
-        'PASSWORD': DB_PASSWORD
+        'PASSWORD': str(os.getenv("DB_PASSWORD"))
     }
 }
 
