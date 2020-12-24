@@ -1,0 +1,16 @@
+{% extends "brettspill/base.html" %}
+
+{% block title %}Opprett spiller{% endblock %}
+
+
+{% block bodyblock %}
+    <h1>Lag en brettspillkonto</h1>
+    <form method="POST" class="form-group">
+        <table>
+            {{ form.as_p }}
+            {%  csrf_token %}
+        </table>
+        <br/>
+        <input type="submit" name="" value="Submit"/>
+    </form>
+{% endblock %}
