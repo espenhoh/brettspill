@@ -6,11 +6,43 @@
 {% block bodyblock %}
     <h1>Lag en brettspillkonto</h1>
     <form method="POST" class="form-group">
-        <table>
-            {{ form.as_p }}
-            {%  csrf_token %}
-        </table>
+
+        {%  csrf_token %}
+        <div class="field">
+            <label for="{{ form.username.id_for_label }}" class="label">
+                Kallenavn
+            </label>
+            <div class="control">
+                {{ form.username }}
+            </div>
+            <p class="help is-danger">{{ form.username.errors }}</p>
+        </div>
+
+        <div class="field">
+            <label for="{{ form.password1.id_for_label }}" class="label">
+                Passord
+            </label>
+            <div class="control">
+                {{ form.password1 }}
+            </div>
+            <p class="help is-danger">{{ form.password1.errors }}</p>
+        </div>
+
+        <div class="field">
+            <label for="{{ form.password2.id_for_label }}" class="label">
+                Password igjen
+            </label>
+            <div class="control">
+                {{ form.password2 }}
+            </div>
+            <p class="help is-danger">{{ form.password2.errors }}</p>
+        </div>
+
+        <div class="field">
+            <div class="control">
+                <button class="button is-link">Registrer</button>
+            </div>
+        </div>
         <br/>
-        <input type="submit" name="" value="Submit"/>
     </form>
 {% endblock %}
