@@ -15,6 +15,14 @@
             padding-top:20px;
         }
 
+        .sidenav p {
+            padding:6px 8px 6px 16px;
+            text-decoration: none;
+            font-size:16px;
+            color: #c4c4c4;
+            display:block;
+        }
+
         .sidenav a {
             padding:6px 8px 6px 16px;
             text-decoration: none;
@@ -37,10 +45,14 @@
 </head>
 <body>
     <div class="sidenav">
-        <a href="/">Hjem</a>
-        <a href="/login">Logg inn</a>
-        <a href="/logged_out">Logg ut</a>
-        <a href="/register">Registrer</a>
+        {% if request.user.is_authenticated %}
+            <p>{{ request.user }}</p>
+            <a href="/">Hjem</a>
+            <a href="/logged_out">Logg ut</a>
+        {% else %}
+            <a href="/login">Logg inn</a>
+            <a href="/register">Registrer</a>
+        {%  endif %}
     </div>
     <div class="content">
         {% block bodyblock %}
