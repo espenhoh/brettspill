@@ -15,12 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from register.views import RegisterView
+from register.views import RegisterView,index
 from django.contrib.auth.views import LoginView, LogoutView
 from brettspill_py import settings
 
 urlpatterns = [
     # path('', include('django.contrib.auth.urls')),
+    path('', index, name='index'),
     path('register/', RegisterView.as_view(), name='register'),
     path('login/', LoginView.as_view(
         template_name='register/login.html'),

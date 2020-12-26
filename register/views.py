@@ -7,6 +7,9 @@ from django.views import View
 
 
 # Create your views here.
+def index(request):
+    return render(request,'brettspill/index.html')
+
 class RegisterView(View):
     def get(self,request):
         return render(request, 'register/register.html', {'form':UserCreationForm()})
