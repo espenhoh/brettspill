@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from register.views import RegisterView,index
+from lobby.views import RegisterView,index
 from django.contrib.auth.views import LoginView, LogoutView
 from brettspill_py import settings
 
@@ -24,10 +24,10 @@ urlpatterns = [
     path('', index, name='index'),
     path('register/', RegisterView.as_view(), name='register'),
     path('login/', LoginView.as_view(
-        template_name='register/login.html'),
+        template_name='lobby/login.html'),
          name='login'),
     path('logged_out/', LogoutView.as_view(
-        template_name='register/logged_out.html',
+        template_name='lobby/logged_out.html',
         next_page=settings.LOGOUT_REDIRECT_URL),
          name='logged_out'),
 ]

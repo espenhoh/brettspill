@@ -12,7 +12,7 @@ def index(request):
 
 class RegisterView(View):
     def get(self,request):
-        return render(request, 'register/register.html', {'form':UserCreationForm()})
+        return render(request, 'lobby/register.html', {'form':UserCreationForm()})
 
     def post(self, request):
         form = RegisterForm(request.POST)
@@ -20,4 +20,4 @@ class RegisterView(View):
             form.save()
             return redirect(reverse("login"))
         else:
-            return render(request, "register/register.html", {"form":form})
+            return render(request, "lobby/register.html", {"form":form})
