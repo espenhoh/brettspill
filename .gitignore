@@ -1,6 +1,8 @@
 #mapper
 .idea
 static
+node_modules
+
 
 #Filer
 password.py

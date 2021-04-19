@@ -39,7 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'lobby.apps.LobbyConfig'
+    'rest_framework',
+    'lobby.apps.LobbyConfig',
+    'gomoku.apps.GomokuConfig',
 ]
 
 MIDDLEWARE = [
