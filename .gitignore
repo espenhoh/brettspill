@@ -2,7 +2,7 @@
 .idea
 static
 node_modules
-
+venv
 
 #Filer
 password.py
