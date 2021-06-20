@@ -4,8 +4,10 @@ static
 node_modules
 venv
 
+
 #Filer
 password.py
+database.env
 
 #Filtyper
 *.pyc
