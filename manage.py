@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 
 def main():
     """Register .env files"""
-    env_path = Path('.') / 'brettspill_py/test.env'
+    env_path = Path('.') / 'brettspill_db/database.env'
     load_dotenv(dotenv_path=env_path, verbose=True)
 
     """Run administrative tasks."""
