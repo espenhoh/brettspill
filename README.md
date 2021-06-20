@@ -12,7 +12,7 @@
 * [Contact](#contact)
 
 ## General info
-Trying to implement a Rest board game without any images
+Trying to implement a Rest board game with html/css and no images/graphics files.
 
 ## Screenshots
 TODO
