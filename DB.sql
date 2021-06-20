@@ -1,6 +1,7 @@
+DROP DATABASE IF EXISTS BrettspillDB;
 CREATE DATABASE BrettspillDB;
-USE BrettspillDB;
+\c BrettspillDB;
 
-SHOW TABLES;
-
-SELECT * FROM auth_user;
+--SHOW TABLES;
+SELECT * FROM pg_catalog.pg_tables WHERE schemaname != 'pg_catalog' AND schemaname != 'information_schema';
+--SELECT * FROM auth_user;
