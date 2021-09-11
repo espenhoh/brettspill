@@ -18,14 +18,18 @@ services:
     env_file:
       - ./brettspill_db/database.env # configure postgres
 
-  adminer:
-    image: adminer
+  pgAdmin:
+    image: dpage/pgadmin4
+    container_name: dev-pgadmin
     restart: always
+    environment: 
+      - PGADMIN_DEFAULT_EMAIL=espen.holtebu@gmail.com
+      - PGADMIN_DEFAULT_PASSWORD=SuperSecret
     networks:
       - brettspill-backend
       - brettspill-frontend
     ports:
-      - 8080:8080
+      - "80:80"
 
 networks:
   brettspill-frontend:
