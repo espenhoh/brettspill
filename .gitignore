@@ -1,5 +1,6 @@
 #mapper
 .idea
+.brettspillEnv
 static
 node_modules
 venv
