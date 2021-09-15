@@ -3,14 +3,14 @@
 import os
 import sys
 from pathlib import Path
-from dotenv import load_dotenv
+import dotenv
 
 
 
 def main():
     """Register .env files"""
     env_path = Path('.') / 'brettspill_db/database.env'
-    load_dotenv(dotenv_path=env_path, verbose=True)
+    dotenv.read_dotenv(dotenv=env_path)
 
     """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'brettspill_py.settings')
@@ -27,3 +27,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+ 

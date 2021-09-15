@@ -82,8 +82,8 @@ WSGI_APPLICATION = 'brettspill_py.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'BrettspillDB',
-        'USER': 'brettspill_admin',
+        'NAME': str(os.getenv("POSTGRES_DB")),
+        'USER': str(os.getenv("POSTGRES_USER")),
         'PASSWORD': str(os.getenv("POSTGRES_PASSWORD"))
     }
 }
