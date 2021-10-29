@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'lobby.apps.LobbyConfig',
     'gomoku.apps.GomokuConfig',
+    'api',
+    'frontend',
 ]
 
 MIDDLEWARE = [
@@ -127,6 +129,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    BASE_DIR / "frontend/static",
+    '/var/www/static/',
+]
 
 LOGOUT_REDIRECT_URL='/login/'
 LOGIN_REDIRECT_URL='/'

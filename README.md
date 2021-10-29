@@ -18,12 +18,16 @@ Trying to implement a Rest board game with html/css and no images/graphics files
 TODO
 
 ## Technologies
-* Python - version 3.9.0
+* pyenv-win - version 2.64.11
+    * Python - version 3.9.6
+* poetry - version 1.1.11 
 * Django - version 3.1.3
 * MariaDB - version 10.5.8
     * BrettspillDB
 
 ## Setup
+1. Using pyenv-win (installed with chokolatey) to handle python versioning: https://github.com/pyenv-win/pyenv-win#installation.
+2. Using poetry 1.1.11 for project management, installed by powershell
 TODO
 Password for database: Add password.py with a field DB_PASSWORD = 'your_pass' into the same directory as settings.py. This variable will be imported.
 

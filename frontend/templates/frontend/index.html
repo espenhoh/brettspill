@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>React Samples</title>
+    {% load static %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+    />
+    <link rel="stylesheet" type="text/css" href="{% static "css/index.css" %}"
+    />
+  </head>
+  <body>
+    <h1>Det funker hvertfall</h1>
+    <div id="main">
+      <section id="baked-salmon">
+        <h1>Baked Salmon</h1>
+        <ul class="ingredients">
+          <li>2 lb salmon</li>
+          <li>5 sprigs fresh rosemary</li>
+          <li>2 tablespoons olive oil</li>
+          <li>2 small lemons</li>
+          <li>1 teaspoon kosher salt</li>
+          <li>4 cloves of chopped garlic</li>
+        </ul>
+        <section class="instructions">
+          <h2>Cooking Instructions</h2>
+          <p>Preheat the oven to 375 degrees.</p>
+          <p>Lightly coat aluminum foil with oil.</p>
+          <p>Place salmon on foil</p>
+          <p>Cover with rosemary, sliced lemons, chopped garlic.</p>
+          <p>Bake for 15-20 minutes until cooked through.</p>
+          <p>Remove from oven.</p>
+        </section>
+      </section>
+      <div id="app"></div>
+    </div>
+
+    <script src="{% static "frontend/main.js" %}"></script>
+  </body>
+</html>
