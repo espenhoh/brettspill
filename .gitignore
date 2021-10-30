@@ -1,6 +1,7 @@
 #mapper
 .idea
 .brettspillEnv
+.vscode
 static
 node_modules
 venv
