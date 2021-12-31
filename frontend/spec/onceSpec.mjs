@@ -1,5 +1,5 @@
 //import { once, billTheUser } from "../src/once.js";
-import * as onceFns from "../src/once.js";
+import * as onceFns from "once.js";
 
 let spyObject = {};
 

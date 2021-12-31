@@ -1,4 +1,4 @@
-import helloWorld from '../src/helloWorld.js';
+import helloWorld from './helloWorld.js';
 
 describe("helloWorld", () => {
     it("returns hello world", () => {
