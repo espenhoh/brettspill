@@ -10,6 +10,7 @@ venv
 #Filer
 password.py
 database.env
+notes
 
 #Filtyper
 *.pyc
