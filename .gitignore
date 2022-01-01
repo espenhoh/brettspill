@@ -9,10 +9,10 @@ venv
 
 #Filer
 password.py
-database.env
 notes
 
 #Filtyper
+*.env
 *.pyc
 *.iml
 /brettspill_py/test.env
