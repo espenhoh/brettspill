@@ -5,6 +5,7 @@
 static
 node_modules
 venv
+env
 
 
 #Filer
@@ -12,7 +13,6 @@ password.py
 notes
 
 #Filtyper
-*.env
 *.pyc
 *.iml
 /brettspill_py/test.env
