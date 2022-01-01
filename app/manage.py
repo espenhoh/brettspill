@@ -6,7 +6,6 @@ from pathlib import Path
 import dotenv
 
 
-
 def main():
     """Register .env files"""
     env_path = Path('.') / 'database.env'
