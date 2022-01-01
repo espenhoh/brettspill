@@ -1,0 +1,57 @@
+version: '3.7'
+
+
+
+services:
+  brettspill:
+    image: brettspill-py
+    container_name: brettspill
+    restart: always
+    depends_on:
+      - "db"
+    build: .
+    command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; gunicorn --bind 0.0.0.0:8000 config.wsgi'
+    ports: #"ute:inne"
+      - "8008:8000"
+    env_file:
+      - ./env/brettspill.prod.env
+    volumes:
+      - ./app:/app
+    networks:
+      - brettspill-backend
+    
+  db:
+    image: postgres:13.3-alpine
+    container_name: brettpill_db
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - ../brettspill-db/postgres.conf:/etc/postgresql/postgresql.conf
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - brettspill-backend
+    env_file:
+      - ./env/database.prod.env # configure postgres
+
+  pgAdmin:
+    image: dpage/pgadmin4
+    container_name: dev-pgadmin
+    restart: always
+    environment: 
+      - PGADMIN_DEFAULT_EMAIL=espen.holtebu@gmail.com
+      - PGADMIN_DEFAULT_PASSWORD=SuperSecret
+    networks:
+      - brettspill-backend
+      - brettspill-frontend
+    ports:
+      - "80:80"
+
+volumes:
+  pgdata:
+
+networks:
+  brettspill-frontend:
+    driver: bridge
+  brettspill-backend:
+    driver: bridge

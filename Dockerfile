@@ -18,6 +18,6 @@ RUN apt-get update && apt-get -y install libpq-dev gcc && \
   pip3 install poetry==${POETRY_VERSION} && \
   poetry config virtualenvs.create false
 
-COPY poetry.lock pyproject.toml database.env /app/
+COPY poetry.lock pyproject.toml env/database.env /app/
 RUN poetry install --no-dev
 COPY /app /app
