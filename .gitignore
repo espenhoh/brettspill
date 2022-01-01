@@ -9,8 +9,7 @@ venv
 
 #Filer
 password.py
-dev.env
-prod.env
+database.env
 notes
 
 #Filtyper
