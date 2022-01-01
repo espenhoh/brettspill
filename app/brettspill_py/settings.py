@@ -10,9 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
-# settings.py
-import os
 from pathlib import Path
+import environ
+import os
+env = environ.Env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,10 +23,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '3o+iezo5o)bu#vuj3!=ot9)5cv*(ecz9_+rk=_(^z%d=@da%!('
+SECRET_KEY = str(os.getenv("SECRET_KEY"))
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = []
 
@@ -80,14 +81,20 @@ WSGI_APPLICATION = 'brettspill_py.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': str(os.getenv("POSTGRES_DB")),
         'USER': str(os.getenv("POSTGRES_USER")),
-        'PASSWORD': str(os.getenv("POSTGRES_PASSWORD"))
+        'PASSWORD': str(os.getenv("POSTGRES_PASSWORD")),
+        'HOST': str(os.getenv("HOST")),
+        'PORT': str(os.getenv("PORT")),
     }
+}"""
+
+DATABASES = {
+    'default': env.db(),
 }
 
 
@@ -113,7 +120,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-#LANGUAGE_CODE = 'en-us'
+# LANGUAGE_CODE = 'en-us'
 LANGUAGE_CODE = 'nb'
 
 TIME_ZONE = 'UTC'
@@ -135,5 +142,5 @@ STATICFILES_DIRS = [
     '/var/www/static/',
 ]
 
-LOGOUT_REDIRECT_URL='/login/'
-LOGIN_REDIRECT_URL='/'
+LOGOUT_REDIRECT_URL = '/login/'
+LOGIN_REDIRECT_URL = '/'
