@@ -18,6 +18,6 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('gomuku/',views.startGomuku),
-    path('gomuku/test',views.startGomukuTest),
+    path('gomuku/', views.startGomuku),
+    path('gomuku/test', views.startGomukuTest),
 ]

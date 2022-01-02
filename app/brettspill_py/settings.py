@@ -80,17 +80,6 @@ WSGI_APPLICATION = 'brettspill_py.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-"""
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': str(os.getenv("POSTGRES_DB")),
-        'USER': str(os.getenv("POSTGRES_USER")),
-        'PASSWORD': str(os.getenv("POSTGRES_PASSWORD")),
-        'HOST': str(os.getenv("HOST")),
-        'PORT': str(os.getenv("PORT")),
-    }
-}"""
 
 DATABASES = {
     'default': env.db(),

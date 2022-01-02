@@ -13,9 +13,10 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path, include
-from lobby.views import RegisterView,index
+# from django.contrib import admin
+from django.urls import path
+# from django.urls import  include
+from lobby.views import RegisterView, index
 from django.contrib.auth.views import LoginView, LogoutView
 from brettspill_py import settings
 
@@ -25,9 +26,9 @@ urlpatterns = [
     path('register/', RegisterView.as_view(), name='register'),
     path('login/', LoginView.as_view(
         template_name='lobby/login.html'),
-         name='login'),
+        name='login'),
     path('logged_out/', LogoutView.as_view(
         template_name='lobby/logged_out.html',
         next_page=settings.LOGOUT_REDIRECT_URL),
-         name='logged_out'),
+        name='logged_out'),
 ]

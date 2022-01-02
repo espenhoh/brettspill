@@ -1,7 +1,7 @@
 class Test:
     test = 'A'
 
-    def __init__(self, test = None):
+    def __init__(self, test=None):
         print(test)
         print(self.test)
         test = test or self.test
