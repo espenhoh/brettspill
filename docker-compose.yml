@@ -9,14 +9,19 @@ services:
       - "db"
     build: .
     command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; python manage.py runserver 0.0.0.0:8000'
-    ports: #"ute:inne"
-      - "8008:8000"
+    expose:  # new
+      - 8000
+    #ports:
+    #  - "8008:8000"
     env_file:
       - ./env/brettspill.env
     volumes:
       - ./app:/app
     networks:
       - brettspill-backend
+    labels: # new
+      - "traefik.enable=true"
+      - "traefik.http.routers.django.rule=Host(`django.localhost`)"
     
   db:
     image: postgres:13.3-alpine
@@ -42,8 +47,22 @@ services:
     networks:
       - brettspill-backend
       - brettspill-frontend
-    ports:
-      - "80:80"
+    expose:
+      - 80
+    labels: # new
+      - "traefik.enable=true"
+      - "traefik.http.routers.pgadmin.rule=Host(`pgadmin.localhost`)"
+
+  traefik: # new
+    image: traefik:v2.2
+    networks:
+      - brettspill-backend
+    ports:  #"ute:inne"
+      - 8008:80
+      - 8081:8080
+    volumes:
+      - "./traefik.dev.toml:/etc/traefik/traefik.toml"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
 networks:
   brettspill-frontend:

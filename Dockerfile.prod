@@ -1,0 +1,73 @@
+
+# app/Dockerfile.prod
+
+###########
+# BUILDER #
+###########
+
+# pull official base image
+FROM python:3.9.7-slim as builder
+
+
+# set environment variables
+ENV PYTHONDONTWRITEBYTECODE=1 \
+  PYTHONUNBUFFERED=1 \
+  PYTHONHASHSEED=random \
+  PIP_NO_CACHE_DIR=off \
+  PIP_DISABLE_PIP_VERSION_CHECK=on \
+  PIP_DEFAULT_TIMEOUT=100 \
+  POETRY_VERSION=1.1.12
+
+RUN mkdir /app
+WORKDIR /app
+
+# lint
+RUN pip install --upgrade pip
+RUN pip install flake8==3.9.1
+COPY /app /app
+RUN flake8 --ignore=E501,F401 .
+
+ENV PYTHONPATH=${PYTHONPATH}:${PWD} 
+RUN apt-get update && apt-get -y install libpq-dev gcc && \
+  pip3 install poetry==${POETRY_VERSION} && \
+  poetry config virtualenvs.create false
+
+COPY poetry.lock pyproject.toml env/database.env /app/
+
+RUN poetry install --no-dev
+RUN poetry build
+
+
+
+#########
+# FINAL #
+#########
+
+# pull official base image
+ FROM python:3.9.5-slim
+
+# create the appropriate directories
+ENV HOME=/home/app
+ENV APP_HOME=/home/app/web
+
+# create directory for the app user
+RUN mkdir -p /home/app && mkdir $APP_HOME && addgroup --system app && adduser --system --group app
+WORKDIR $APP_HOME
+
+RUN apt-get update && apt-get -y install libpq-dev gcc
+
+# brettspill_py-0.1.0-py3-none-any.whl  brettspill_py-0.1.0.tar.gz
+# install dependencies
+COPY --from=builder /app/dist/ /wheels
+COPY --from=builder /app/pyproject.toml .
+RUN pip install --upgrade pip
+RUN pip install --no-cache /wheels/*.whl
+
+# copy project
+COPY ./app $APP_HOME
+
+# chown all the files to the app user
+RUN chown -R app:app $APP_HOME
+
+# change to the app user
+USER app

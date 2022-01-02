@@ -6,17 +6,17 @@ services:
   brettspill:
     image: brettspill-py
     container_name: brettspill
-    restart: always
+    restart: "no"
     depends_on:
       - "db"
-    build: .
-    command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; gunicorn --bind 0.0.0.0:8000 config.wsgi'
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; gunicorn --bind 0.0.0.0:8000 brettspill_py.wsgi'
     ports: #"ute:inne"
       - "8008:8000"
     env_file:
       - ./env/brettspill.prod.env
-    volumes:
-      - ./app:/app
     networks:
       - brettspill-backend
     
@@ -28,7 +28,7 @@ services:
       - "5432:5432"
     volumes:
       - ../brettspill-db/postgres.conf:/etc/postgresql/postgresql.conf
-      - pgdata:/var/lib/postgresql/data
+      - pgdata-prod:/var/lib/postgresql/data
     networks:
       - brettspill-backend
     env_file:
@@ -48,7 +48,7 @@ services:
       - "80:80"
 
 volumes:
-  pgdata:
+  pgdata-prod:
 
 networks:
   brettspill-frontend:

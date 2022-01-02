@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "brettspill"
+name = "brettspill_py"
 version = "0.1.0"
 description = "Brettpill på norsk"
 authors = ["Espen Holtebu <espen.holtebu@gmail.com>"]
@@ -11,6 +11,7 @@ djangorestframework = "^3.12.4"
 django-dotenv = "^1.4.2"
 psycopg2 = "^2.9.1"
 django-environ = "^0.8.1"
+gunicorn = "^20.1.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.5"
