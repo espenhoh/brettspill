@@ -2,14 +2,11 @@ version: '3.7'
 
 services:
   brettspill:
-    image: brettspill-py
+    image: brettspill-py:latest
     container_name: brettspill
     restart: always
     depends_on:
       - "db"
-    build:
-      context: .
-      dockerfile: Dockerfile.prod
     command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; gunicorn --bind 0.0.0.0:8000 brettspill_py.wsgi'
     expose:  # new
       - 8000
@@ -19,7 +16,15 @@ services:
       - brettspill-backend
     labels: # new
       - "traefik.enable=true"
-      - "traefik.http.routers.django.rule=Host(`django.localhost`)"
+      # - "traefik.http.routers.brettspill.rule=Host(`10.0.0.234`)"
+      - "traefik.http.routers.brettspill.rule=Host(`brettspill.mywire.org`)"
+      # - "traefik.http.routers.brettspill.rule=PathPrefix(`/brettspill`)"
+      # - "traefik.http.middlewares.brett-strip.stripprefix.prefixes=/brettspill"
+      # - "traefik.http.routers.brettspill.middlewares=brett-strip"
+      - "traefik.port=8000"
+      # - "traefik.docker.network=brettspill-backend"
+
+
     
   db:
     image: postgres:13.3-alpine
@@ -52,14 +57,14 @@ services:
       - "traefik.http.routers.pgadmin.rule=Host(`pgadmin.localhost`)"
 
   traefik: # new
-    image: traefik:v2.2
+    image: traefik:v2.5.6
     networks:
       - brettspill-backend
     ports:  #"ute:inne"
-      - 8000:80
+      - 8008:80
       - 8081:8080
     volumes:
-      - "./traefik.dev.toml:/etc/traefik/traefik.toml"
+      - "./traefik.prod.yml:/etc/traefik/traefik.yml"
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
 volumes:

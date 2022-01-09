@@ -59,7 +59,7 @@ RUN apt-get update && apt-get -y install libpq-dev gcc
 # brettspill_py-0.1.0-py3-none-any.whl  brettspill_py-0.1.0.tar.gz
 # install dependencies
 COPY --from=builder /app/dist/ /wheels
-COPY --from=builder /app/pyproject.toml .
+# COPY --from=builder /app/pyproject.toml .
 RUN pip install --upgrade pip
 RUN pip install --no-cache /wheels/*.whl
 
