@@ -13,6 +13,7 @@ password.py
 notes
 
 #Filtyper
+*.tar
 *.pyc
 *.iml
 /brettspill_py/test.env
