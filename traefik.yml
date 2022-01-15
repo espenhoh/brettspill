@@ -2,7 +2,7 @@
 
 # listen on port 80
 entryPoints:
-  http:
+  web:
     address: :80
 
 # Traefik dashboard over http
