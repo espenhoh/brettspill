@@ -27,7 +27,9 @@ SECRET_KEY = env("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = ['10.0.0.234', 'brettspill.mywire.org']
+# Returns default value if DJANGO_ALLOWED_HOSTS not found in env file
+ALLOWED_HOSTS = env('DJANGO_ALLOWED_HOSTS', default=[])
+print(ALLOWED_HOSTS)
 
 
 # Application definition
