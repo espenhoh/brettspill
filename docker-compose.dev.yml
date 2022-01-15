@@ -8,8 +8,6 @@ services:
     depends_on:
       - "db"
     build: .
-
-
     command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; python manage.py runserver 0.0.0.0:8000'
     expose:  # new
       - 8000
@@ -21,7 +19,8 @@ services:
       - brettspill-backend
     labels: # new
       - "traefik.enable=true"
-      - "traefik.http.routers.django.rule=Host(`django.localhost`)"
+      - "traefik.http.routers.brettspill.rule=Host(`localhost`)"
+      - "traefik.http.routers.brettspill.rule=PathPrefix(`/brettspill`)"
     
   db:
     image: postgres:13.3-alpine
