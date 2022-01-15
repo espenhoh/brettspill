@@ -2,15 +2,10 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
-from pathlib import Path
-import dotenv
+
 
 
 def main():
-    """Register .env files"""
-    env_path = Path('.') / 'database.env'
-    dotenv.read_dotenv(dotenv=env_path)
-
     """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'brettspill_py.settings')
     try:
