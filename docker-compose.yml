@@ -16,9 +16,8 @@ services:
       - brettspill-backend
     labels: # new
       - "traefik.enable=true"
-      - "traefik.http.routers.brettspill.rule=Host(`10.0.0.234`)"
-      - "traefik.http.routers.brettspill.rule=Host(`brettspill.mywire.org`)"
-      # - "traefik.http.routers.brettspill.rule=PathPrefix(`/brettspill`)"
+      - "traefik.http.routers.brettspill.rule=Host(`10.0.0.234`, `brettspill.mywire.org`)"
+      - "traefik.http.routers.brettspill.rule=PathPrefix(`/brettspill`)"
       # - "traefik.http.middlewares.brett-strip.stripprefix.prefixes=/brettspill"
       # - "traefik.http.routers.brettspill.middlewares=brett-strip"
       - "traefik.port=8000"
