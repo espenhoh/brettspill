@@ -29,7 +29,6 @@ DEBUG = env('DEBUG')
 
 # Returns default value if DJANGO_ALLOWED_HOSTS not found in env file
 ALLOWED_HOSTS = env('DJANGO_ALLOWED_HOSTS', default=[])
-print(ALLOWED_HOSTS)
 
 
 # Application definition
