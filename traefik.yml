@@ -1,20 +1,41 @@
-# traefik.prod.toml
+---
+# traefik.yml
 
 # listen on port 80
 entryPoints:
+  webinternal:
+    address: ":8001"
   web:
-    address: :80
-
-# Traefik dashboard over http
-api:
-  insecure: true
-
-log:
-  level: DEBUG
+    address: ":80"
+    http:
+      redirections:
+        entryPoint:
+          to: "websecure"
+          scheme: "https"
+  websecure:
+    address: ":443"
 
 accessLog:
+
+api:
+  dashboard: true
+
+log:
+  level: "WARN"
 
 # containers are not discovered automatically
 providers:
   docker:
     exposedByDefault: false
+
+serversTransport:
+  insecureSkipVerify: true
+
+certificatesResolvers:
+  letsencrypt:
+    acme:
+      #caServer: https://acme-v02.api.letsencrypt.org/directory
+      email: "espen.holtebu@gmail.com"
+      storage: "/certificates/acme.json"
+      httpChallenge:
+        entryPoint: "web"
