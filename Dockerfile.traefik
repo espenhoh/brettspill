@@ -1,0 +1,6 @@
+
+# app/Dockerfile.prod
+
+FROM traefik:v2.6.0
+
+COPY ./traefik.yml ./etc/traefik/traefik.yml

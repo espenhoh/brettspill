@@ -13,18 +13,17 @@ services:
     env_file:
       - ./env/brettspill.prod.env
     networks:
-      - brettspill-backend
+      - backend
+      - frontend
     labels: # new
       - "traefik.enable=true"
-      - "traefik.http.routers.brettspill.rule=Host(`10.0.0.234`, `brettspill.mywire.org`)"
-      - "traefik.http.routers.brettspill.rule=PathPrefix(`/brettspill`)"
-      # - "traefik.http.middlewares.brett-strip.stripprefix.prefixes=/brettspill"
-      # - "traefik.http.routers.brettspill.middlewares=brett-strip"
+      - "traefik.http.routers.brettspill.rule=Host(`www.holtebu.eu`) && PathPrefix(`/brettspill`)"
+      - "traefik.http.routers.brettspill.tls=true"
+      - "traefik.http.routers.brettspill.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.brettspillhome.rule=Host(`10.0.0.234`) && PathPrefix(`/brettspill`)"
       - "traefik.port=8000"
-      # - "traefik.docker.network=brettspill-backend"
+      - "traefik.docker.network=brettspill_frontend"
 
-
-    
   db:
     image: postgres:13.3-alpine
     container_name: brettpill_db
@@ -35,42 +34,56 @@ services:
       - ../brettspill-db/postgres.conf:/etc/postgresql/postgresql.conf
       - pgdata-prod:/var/lib/postgresql/data
     networks:
-      - brettspill-backend
+      - backend
     env_file:
       - ./env/database.prod.env # configure postgres
 
-  pgAdmin:
-    image: dpage/pgadmin4
-    container_name: dev-pgadmin
-    restart: always
-    environment: 
-      - PGADMIN_DEFAULT_EMAIL=espen.holtebu@gmail.com
-      - PGADMIN_DEFAULT_PASSWORD=SuperSecret
-    networks:
-      - brettspill-backend
-      - brettspill-frontend
-    expose:
-      - 80
-    labels: # new
-      - "traefik.enable=true"
-      - "traefik.http.routers.pgadmin.rule=Host(`pgadmin.localhost`)"
+  #pgAdmin:
+  #  image: dpage/pgadmin4
+  #  container_name: dev-pgadmin
+  #  restart: always
+  #  environment: 
+  #    - PGADMIN_DEFAULT_EMAIL=espen.holtebu@gmail.com
+  #    - PGADMIN_DEFAULT_PASSWORD=SuperSecret
+  #  networks:
+  #    - brettspill-backend
+  #    - brettspill-frontend
+  #  expose:
+  #    - 80
+  #  labels: # new
+  #    - "traefik.enable=true"
+  #    - "traefik.http.routers.pgadmin.rule=Host(`pgadmin.localhost`)"
 
   traefik: # new
-    image: traefik:v2.5.6
+    build:
+      context: .
+      dockerfile: Dockerfile.traefik
     networks:
-      - brettspill-backend
+      - frontend
     ports:  #"ute:inne"
-      - 8008:80
-      - 8081:8080
+      - 8001:8001
+      - 80:80
+      - 443:443
     volumes:
-      - "./traefik.yml:/etc/traefik/traefik.yml"
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "./traefik-public-certificates:/certificates"
+    env_file:
+      - "./env/traefik.env" # configure postgres
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.dashboard.rule=Host(`dashboard.holtebu.eu`)"
+      - "traefik.http.routers.dashboard.tls=true"
+      - "traefik.http.routers.dashboard.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.dashboard.service=api@internal"
+      - "traefik.http.routers.dashboard.middlewares=auth"
+      - "traefik.http.middlewares.auth.basicauth.users=espenhoh:$$apr1$$QLpvI1du$$y0x3XOAgqugRTwgXz.dJ70"
 
 volumes:
   pgdata-prod:
+  traefik-public-certificates:
 
 networks:
-  brettspill-frontend:
+  frontend:
     driver: bridge
-  brettspill-backend:
+  backend:
     driver: bridge
