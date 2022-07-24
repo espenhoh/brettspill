@@ -1,0 +1,48 @@
+#WSL2 dns
+#https://superuser.com/questions/1533291/how-do-i-change-the-dns-settings-for-wsl2
+sudo nano /etc/wsl.conf
+[network]
+generateResolvConf = false
+sudo rm /etc/resolv.conf
+sudo nano /etc/resolv.conf
+nameserver 8.8.8.8
+exit
+wsl --shutdown
+wsl
+
+#Add user to docker user group
+sudo usermod -aG docker $USER
+
+
+#Install docker-compose
+COMPOSE_VERSION=2.4.1
+#curl -L "https://github.com/docker/compose/releases/download/v$COMPOSE_VERSION/docker-compose-linux-x86_64" --create-dirs -o $HOME/.docker/cli-plugins/docker-compose
+sudo curl -L "https://github.com/docker/compose/releases/download/v$COMPOSE_VERSION/docker-compose-linux-x86_64" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+
+
+#Update poetry, use fresh install
+curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python - 
+
+#Using virtualenv brettspill-YFU5uXvi-py3.9 in C:\Users\H140917\AppData\Local\pypoetry\Cache\virtualenvs\brettspill-py-YFU5uXvi-py3.10
+#If not present create a new virtualenv: poetry install
+#config poetry
+poetry config --list
+poetry config cache-dir "c:/Dev/poetry/cache"
+
+
+#Utvikling
+#start WSL og cd /mnt/c/Dev/projects/Brettspill/brettspill-py
+docker build -t brettspill-py:latest .
+docker-compose -f docker-compose.dev.yml up --build
+
+Browser: http://localhost:8008/brettspill
+
+
+#Prod
+docker build -t brettspill-py:latest -f Dockerfile.prod .
+docker save -o ./brettspill-py.tar brettspill-py  
+
+docker load -i brettspill-py.tar
+
+docker-compose -f docker-compose.yml down
