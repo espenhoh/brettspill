@@ -19,8 +19,7 @@ services:
       - brettspill-backend
     labels: # new
       - "traefik.enable=true"
-      - "traefik.http.routers.brettspill.rule=Host(`localhost`)"
-      - "traefik.http.routers.brettspill.rule=PathPrefix(`/brettspill`)"
+      - "traefik.http.routers.brettspill.rule=Host(`brettspill.localhost`)"
     
   db:
     image: postgres:13.3-alpine
@@ -53,15 +52,17 @@ services:
       - "traefik.http.routers.pgadmin.rule=Host(`pgadmin.localhost`)"
 
   traefik: # new
-    image: traefik:v2.2
+    image: traefik:v2.7
+
     networks:
       - brettspill-backend
     ports:  #"ute:inne"
       - 8008:80
       - 8081:8080
     volumes:
-      - "./traefik.dev.toml:/etc/traefik/traefik.toml"
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "./traefik.dev.yml:/etc/traefik/traefik.yml"
+      - "./traefik.routes.dev.yml:/etc/traefik/traefik.routes.yml"
+      - "/mnt/wsl/shared-docker/docker.sock:/var/run/docker.sock:ro"
 
 networks:
   brettspill-frontend:

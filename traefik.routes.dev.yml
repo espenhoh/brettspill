@@ -1,0 +1,6 @@
+## middlewares.yml
+http:
+  routers:
+    brettspill:
+      rule: "Host(`localhost`)" #" && PathPrefix(`/brettspill`)"
+      service: brettspill
