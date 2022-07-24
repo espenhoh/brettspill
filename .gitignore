@@ -4,7 +4,9 @@
 .vscode
 static
 node_modules
+# Python virtual environment
 venv
+#Folder with environment files
 env
 
 
