@@ -128,7 +128,7 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     BASE_DIR / "frontend/static",
-    '/var/www/static/',
+    # '/var/www/static/',
 ]
 
 LOGOUT_REDIRECT_URL = '/login/'
