@@ -36,8 +36,7 @@ poetry config cache-dir "c:/Dev/poetry/cache"
 docker build -t brettspill-py:latest .
 docker-compose -f docker-compose.dev.yml up --build
 
-Browser: http://localhost:8008/brettspill
-
+Browser: http://brettspill.localhost:8008/brettspill/
 
 #Prod
 docker build -t brettspill-py:latest -f Dockerfile.prod .
