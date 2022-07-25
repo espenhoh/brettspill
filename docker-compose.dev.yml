@@ -52,7 +52,7 @@ services:
       - "traefik.http.routers.pgadmin.rule=Host(`pgadmin.localhost`)"
 
   traefik: # new
-    image: traefik:v2.7
+    image: traefik:v2.8.1
 
     networks:
       - brettspill-backend
