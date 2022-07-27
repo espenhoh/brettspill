@@ -9,9 +9,9 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-
-from pathlib import Path
 import environ
+from pathlib import Path
+
 env = environ.Env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -88,8 +88,10 @@ DATABASES = {
     'default': env.db(),
 }
 
+AUTH_USER_MODEL = 'lobby.Spiller'
 
-DEFAULT_AUTO_FIELD='django.db.models.AutoField'
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 
 # Password validation

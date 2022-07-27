@@ -1,15 +1,15 @@
 from email.policy import default
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 from colorfield.fields import ColorField
 
 
-# Extending auth_user for å legge til attributter for spiller.
+# Custom user model for å legge til attributter for spiller.
 # auth_user har allerede:
 # id, username, password, email, first_name, last_name,
 # is_superuser, is_staff, is_active, data_joined og last_login
-class Spiller(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+class Spiller(AbstractUser):
+    pass
 
 
 class Spill(models.Model):
@@ -27,7 +27,7 @@ class Spill(models.Model):
         help_text="Type spill",
     )
     vert = models.OneToOneField(
-        User,
+        Spiller,
         on_delete=models.DO_NOTHING
     )
     spillere = models.ManyToManyField(Spiller, through='SpillerISpill')
