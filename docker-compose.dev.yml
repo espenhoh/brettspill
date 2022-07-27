@@ -36,12 +36,14 @@ services:
       - ./env/database.env # configure postgres
 
   pgAdmin:
-    image: dpage/pgadmin4
+    image: dpage/pgadmin4:6.11
     container_name: dev-pgadmin
     restart: always
     environment: 
       - PGADMIN_DEFAULT_EMAIL=espen.holtebu@gmail.com
       - PGADMIN_DEFAULT_PASSWORD=SuperSecret
+    volumes:
+      - pgadmin_vol:/var/lib/pgadmin
     networks:
       - brettspill-backend
       - brettspill-frontend
@@ -69,3 +71,6 @@ networks:
     driver: bridge
   brettspill-backend:
     driver: bridge
+
+volumes:
+  pgadmin_vol:
