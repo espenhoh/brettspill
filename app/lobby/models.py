@@ -1,4 +1,5 @@
 from email.policy import default
+from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from colorfield.fields import ColorField
@@ -27,16 +28,23 @@ class Spill(models.Model):
         help_text="Type spill",
     )
     vert = models.OneToOneField(
-        Spiller,
-        on_delete=models.DO_NOTHING
+        settings.AUTH_USER_MODEL,
+        on_delete=models.DO_NOTHING,
+        related_name='+'
     )
-    spillere = models.ManyToManyField(Spiller, through='SpillerISpill')
+    spillere = models.ManyToManyField(
+        settings.AUTH_USER_MODEL,
+        through='SpillerISpill'
+    )
     start_tid = models.DateTimeField()
     slutt_tid = models.DateTimeField()
 
 
 class SpillerISpill(models.Model):
-    spiller = models.ForeignKey(Spiller, on_delete=models.CASCADE)
+    spiller = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE
+    )
     spill = models.ForeignKey(Spill, on_delete=models.CASCADE)
     farge = ColorField(default='#FF0000')
     plassering = models.SmallIntegerField()
