@@ -28,7 +28,7 @@ urlpatterns = [
         template_name='lobby/login.html'),
         name='login'),
     path('logged_out/', LogoutView.as_view(
-        template_name='lobby/logged_out.html',
+        # template_name='lobby/logged_out.html',
         next_page=settings.LOGOUT_REDIRECT_URL),
         name='logged_out'),
 ]
