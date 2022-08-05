@@ -36,7 +36,7 @@ services:
       - ./env/database.env # configure postgres
 
   pgAdmin:
-    image: dpage/pgadmin4:6.11
+    image: dpage/pgadmin4:6.12
     container_name: dev-pgadmin
     restart: always
     environment: 
