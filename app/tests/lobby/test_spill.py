@@ -1,12 +1,29 @@
+import pytz
 from django.test import TestCase
+from lobby.models import Spiller, Spill
 from lobby.models import Spill
 from datetime import datetime
 
 
 class AnimalTestCase(TestCase):
     def setUp(self):
-        Spill.objects.create(spill_navn="test_spill", spill_type=Spill.SpillType.MONOPOL, start_tid=datetime.now(), slutt_tid=datetime.now())
+        Spiller.objects.create(
+            username="testuser",
+            email="test@user.test",
+            first_name="Test",
+            last_name="Name"
+        )
+
+        tz_oslo = pytz.timezone('Europe/Oslo')
+        nå = datetime.now(tz=tz_oslo)
+        Spill.objects.create(
+            spill_navn="test_spill",
+            spill_type=Spill.SpillType.MONOPOL,
+            start_tid=nå,
+            slutt_tid=nå,
+            vert=Spiller.objects.get(username="testuser")
+        )
 
     def test_spill_er_monopol(self):
         test_spill = Spill.objects.get(spill_navn="test_spill")
-        self.assertEqual(test_spill.spill_type, 'MONOPOL')
+        assert test_spill.spill_type == 'MPOL'
