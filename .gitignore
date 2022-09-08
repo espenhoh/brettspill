@@ -8,7 +8,6 @@ node_modules
 # Python virtual environment
 venv
 #Folder with environment files
-env
 
 
 #Filer
@@ -16,6 +15,7 @@ password.py
 notes
 
 #Filtyper
+*.env
 *.tar
 *.pyc
 *.iml
