@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect, reverse
 from .forms import SpillerRegistreringForm
 # from django.contrib.auth.views import LoginView, LogoutView
 from django.views import View
+from django.views.generic import TemplateView
 
 # To send emails
 from django.core.mail import send_mail
@@ -14,6 +15,15 @@ from django.conf import settings
 # Create your views here.
 def index(request):
     return render(request, 'brettspill/index.html')
+
+
+class HomeView(TemplateView):
+    template_name = "brettspill/index.html"
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect('members:members-home')
+        return super(HomeView, self).dispatch(request, *args, **kwargs)
 
 
 class RegisterView(View):
