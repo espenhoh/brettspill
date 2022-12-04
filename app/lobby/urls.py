@@ -14,16 +14,23 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 # from django.contrib import admin
-from django.urls import path
-# from django.urls import  include
-from lobby.views import RegisterView, index
+import lobby.views as views
+
+from django.urls import path, include
+from rest_framework import routers
 from django.contrib.auth.views import LoginView, LogoutView
 from brettspill_py import settings
 
+router = routers.DefaultRouter()
+router.register(r'spillere', views.SpillerViewSet)
+router.register(r'groups', views.GroupViewSet)
+
 urlpatterns = [
     # path('', include('django.contrib.auth.urls')),
-    path('', index, name='index'),
-    path('register/', RegisterView.as_view(), name='register'),
+    path('', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('', views.index, name='index'),
+    path('register/', views.RegisterView.as_view(), name='register'),
     path('login/', LoginView.as_view(
         template_name='lobby/login.html',
         redirect_authenticated_user=True),
@@ -32,4 +39,5 @@ urlpatterns = [
         # template_name='lobby/logged_out.html',
         next_page=settings.LOGOUT_REDIRECT_URL),
         name='logged_out'),
+    path("hello/<name>", views.hello_there, name="hello_there"),
 ]
