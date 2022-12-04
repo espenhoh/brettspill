@@ -18,6 +18,7 @@ from django.urls import path, include
 from django.views.generic.base import RedirectView
 
 urlpatterns = [
+    path(r'api/auth/', include('knox.urls')), 
     path('admin/', admin.site.urls),
     path('lobby/', include('lobby.urls')),
     path('', include('gomoku.urls')),
