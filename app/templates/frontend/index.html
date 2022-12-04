@@ -2,6 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8" />
+    <!-- This sets the page to responsive: -->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>React Samples</title>
     {% load static %}
@@ -12,33 +13,13 @@
     />
     <link rel="stylesheet" type="text/css" href="{% static "css/index.css" %}"
     />
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script type="module" crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
   </head>
   <body>
-    <h1>Det funker hvertfall</h1>
-    <div id="main">
-      <section id="baked-salmon">
-        <h1>Baked Salmon</h1>
-        <ul class="ingredients">
-          <li>2 lb salmon</li>
-          <li>5 sprigs fresh rosemary</li>
-          <li>2 tablespoons olive oil</li>
-          <li>2 small lemons</li>
-          <li>1 teaspoon kosher salt</li>
-          <li>4 cloves of chopped garlic</li>
-        </ul>
-        <section class="instructions">
-          <h2>Cooking Instructions</h2>
-          <p>Preheat the oven to 375 degrees.</p>
-          <p>Lightly coat aluminum foil with oil.</p>
-          <p>Place salmon on foil</p>
-          <p>Cover with rosemary, sliced lemons, chopped garlic.</p>
-          <p>Bake for 15-20 minutes until cooked through.</p>
-          <p>Remove from oven.</p>
-        </section>
-      </section>
-      <div id="app"></div>
-    </div>
-
-    <script src="{% static "frontend/main.js" %}"></script>
+    <div id="root"></div>
+    <!-- <script src="{% static "frontend/main.js" %}"></script> -->
+    <script src="{% static "frontend/test.js" %}" type="text/babel"></script>
   </body>
 </html>
