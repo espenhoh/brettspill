@@ -1,0 +1,11 @@
+{
+    "files.autoSave": "onFocusChange",
+    "python.venvPath": "C:\\Users\\H140917\\AppData\\Local\\pypoetry\\Cache\\virtualenvs",
+    "python.linting.flake8Enabled": true,
+    "python.linting.enabled": true,
+    "python.testing.pytestArgs": [
+        "."
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true
+}
