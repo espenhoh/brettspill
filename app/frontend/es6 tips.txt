@@ -1,0 +1,49 @@
+#let const and var
+var is function scoped
+let and const are block scoped. If used within a block eg is, its not defined.
+var can be redaclared, while let cannot.
+var variables can be used before declared, hoisted.
+let variables throws a referencError
+const and var are exacly the same with the exeption that const are immutable
+Prefer const when you don't need to change the value.
+
+#Arrow functions
+function sum(a, b) {
+    return a + b
+}
+
+let sum2 = (a, b) => a + b;
+
+function isPositive(number) {
+    return number >= 0;
+}
+
+#Parentheses are not needed when single parameter
+let isPositive2 = number => number >= 0;
+
+function randomNumber() {
+    return Math.random()
+}
+
+let randomNumber2 = () => Math.random;
+
+
+document.addEventListener('click', function() {
+    console.log('click')
+})
+
+document.addEventListener('click', () => console.log('click'))
+
+
+Arrow functions doesnt redifine this! Thats why you should always arrow functions.
+
+#String template literals ``
+const name = 'John';
+const message = 'This is ' + name + '\'s\n \'first\' message';
+const message2 = 
+`This is ${name}'s
+'first' message`;
+
+#Spread operator
+let meats = ["ham","salami","bacon"];
+console.log(...meats); prints ham salami bacon
