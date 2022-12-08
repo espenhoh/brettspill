@@ -50,7 +50,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'colorfield',
     'rest_framework',
-    'knox',
+    'corsheaders',  # Allows Cross-Origin Resource Sharing
+    # 'knox',
     'lobby.apps.LobbyConfig',
     'gomoku.apps.GomokuConfig',
     'api',
@@ -61,6 +62,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',  # new
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -69,6 +71,10 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'brettspill_py.urls'
+
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:3000',
+]
 
 TEMPLATES = [
     {
@@ -167,9 +173,11 @@ EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 #     'DEFAULT_AUTHENTICATION_CLASSES': ('knox.auth.TokenAuthentication',),
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10
+    'PAGE_SIZE': 10,
+    'DEFAULT_AUTHENTICATION_CLASSES': [],
+    'DEFAULT_PERMISSION_CLASSES': [],
 }
-
+"""
 REST_KNOX = {
   'SECURE_HASH_ALGORITHM': 'cryptography.hazmat.primitives.hashes.SHA512',
   'AUTH_TOKEN_CHARACTER_LENGTH': 64,
@@ -179,3 +187,4 @@ REST_KNOX = {
   'AUTO_REFRESH': False,
   'EXPIRY_DATETIME_FORMAT': api_settings.DATETIME_FORMAT,
 }
+"""
