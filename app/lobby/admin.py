@@ -4,7 +4,9 @@ from django.conf import settings
 
 from .forms import SpillerRegistreringForm
 
-from .models import Spiller
+from .models import Spiller, Spill, SpillerISpill
+
+admin.site.site_header = "Lobby Admin"
 
 
 class SpillerAdmin(UserAdmin):
@@ -31,3 +33,6 @@ class SpillerAdmin(UserAdmin):
 
 
 admin.site.register(Spiller, SpillerAdmin)
+admin.site.register(Spill)
+admin.site.register(SpillerISpill)
+

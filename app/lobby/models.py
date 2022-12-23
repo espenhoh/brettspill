@@ -21,6 +21,7 @@ class Spill(models.Model):
         max_length=25,
         help_text="Navn for å kjenne igjen spillet senere.",
     )
+    
     spill_type = models.CharField(
         max_length=4,
         choices=SpillType.choices,
@@ -48,3 +49,7 @@ class SpillerISpill(models.Model):
     spill = models.ForeignKey(Spill, on_delete=models.CASCADE)
     farge = ColorField(default='#FF0000')
     plassering = models.SmallIntegerField()
+
+    class Meta:
+        unique_together = ['spiller', 'spill']
+
