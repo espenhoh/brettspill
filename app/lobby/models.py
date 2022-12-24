@@ -28,11 +28,6 @@ class Spill(models.Model):
         default=SpillType.MONOPOL,
         help_text="Type spill",
     )
-    vert = models.OneToOneField(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.DO_NOTHING,
-        related_name='+'
-    )
     spillere = models.ManyToManyField(
         settings.AUTH_USER_MODEL,
         through='SpillerISpill'
@@ -46,7 +41,13 @@ class SpillerISpill(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE
     )
-    spill = models.ForeignKey(Spill, on_delete=models.CASCADE)
+    spill = models.ForeignKey(
+        Spill,
+        on_delete=models.CASCADE
+    )
+    vert = models.BooleanField(
+        default=False
+    )
     farge = ColorField(default='#FF0000')
     plassering = models.SmallIntegerField()
 

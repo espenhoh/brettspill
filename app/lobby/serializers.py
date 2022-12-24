@@ -1,5 +1,5 @@
 from django.contrib.auth.models import Group
-from .models import Spiller
+from .models import Spiller, Spill
 from rest_framework import serializers
 
 
@@ -13,3 +13,9 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Group
         fields = ['url', 'name']
+
+
+class SpillSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Spill
+        fields = '__all__'

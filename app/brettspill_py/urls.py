@@ -28,6 +28,7 @@ from rest_framework_simplejwt.views import (
 router = routers.DefaultRouter()
 router.register(r'users', views.SpillerViewSet)
 router.register(r'groups', views.GroupViewSet)
+router.register(r'spill', views.SpillViewSet)
 
 urlpatterns = [
     # path(r'api/auth/', include('knox.urls')), 
@@ -35,6 +36,7 @@ urlpatterns = [
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path(r'lobby/', include(router.urls)),
     # path('lobby/', include('lobby.urls')),
     # path('', include('gomoku.urls')),
     # path('api/', include('api.urls')),

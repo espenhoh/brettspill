@@ -13,8 +13,8 @@ from django.views.generic import TemplateView
 from rest_framework import viewsets
 from rest_framework import permissions
 from django.contrib.auth.models import Group
-from lobby.models import Spiller
-from lobby.serializers import SpillerSerializer, GroupSerializer
+from lobby.models import Spiller, Spill
+from lobby.serializers import SpillSerializer, SpillerSerializer, GroupSerializer
 
 
 # To send emails
@@ -93,3 +93,11 @@ class GroupViewSet(viewsets.ModelViewSet):
     serializer_class = GroupSerializer
     permission_classes = [permissions.IsAuthenticated]
     
+
+class SpillViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows groups to be viewed or edited.
+    """
+    queryset = Spill.objects.all()
+    serializer_class = SpillSerializer
+    permission_classes = []
