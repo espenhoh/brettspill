@@ -51,7 +51,7 @@ INSTALLED_APPS = [
     'colorfield',
     'rest_framework',
     'corsheaders',  # Allows Cross-Origin Resource Sharing
-    # 'knox',
+    'django_extensions',
     'lobby.apps.LobbyConfig',
     'gomoku.apps.GomokuConfig',
     'api',
