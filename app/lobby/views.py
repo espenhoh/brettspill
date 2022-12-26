@@ -10,11 +10,12 @@ from lobby.forms import SpillerRegistreringForm
 from django.views import View
 from django.views.generic import TemplateView
 # REST things
-from rest_framework import viewsets
-from rest_framework import permissions
-from django.contrib.auth.models import Group
+from rest_framework import viewsets, generics
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from lobby.models import Spiller, Spill
-from lobby.serializers import SpillSerializer, SpillerSerializer, GroupSerializer
+from lobby.serializers import RegisterSerializer
+from lobby.serializers import SpillSerializer
+from lobby.serializers import SpillerSerializer
 
 
 # To send emails
@@ -36,7 +37,13 @@ class HomeView(TemplateView):
         return super(HomeView, self).dispatch(request, *args, **kwargs)
 
 
-class RegisterView(View):
+class RegisterView(generics.CreateAPIView):
+    queryset = Spiller.objects.all()
+    permission_classes = (AllowAny,)
+    serializer_class = RegisterSerializer
+
+
+class RegisterView2(View):
     def get(self, request):
         form = {'form': SpillerRegistreringForm()}
         return render(request, 'lobby/register.html', form)
@@ -52,7 +59,7 @@ class RegisterView(View):
 
     def _send_velkomstepost(form):
         subject = 'Brettspillregistrering'
-        message = 'Hei ! Takk for at du registrerte deg hos holtebu.eu brettspill.'
+        message = 'Hei! Takk for at du registrerte deg hos holtebu.eu brettspill.'
         email_from = settings.EMAIL_HOST_USER
         recipient_list = ['espenhoh@gmail.com', ]
         send_mail(subject, message, email_from, recipient_list)
@@ -82,17 +89,8 @@ class SpillerViewSet(viewsets.ModelViewSet):
     """
     queryset = Spiller.objects.all().order_by('-date_joined')
     serializer_class = SpillerSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
-
-class GroupViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows groups to be viewed or edited.
-    """
-    queryset = Group.objects.all()
-    serializer_class = GroupSerializer
-    permission_classes = [permissions.IsAuthenticated]
-    
 
 class SpillViewSet(viewsets.ModelViewSet):
     """

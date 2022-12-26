@@ -18,26 +18,20 @@ import lobby.views as views
 
 from django.urls import path, include
 from rest_framework import routers
-from django.contrib.auth.views import LoginView, LogoutView
-from brettspill_py import settings
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
+
 
 router = routers.DefaultRouter()
 router.register(r'spillere', views.SpillerViewSet)
-router.register(r'groups', views.GroupViewSet)
+# router.register(r'groups', views.GroupViewSet)
+router.register(r'spill', views.SpillViewSet)
 
 urlpatterns = [
-    # path('', include('django.contrib.auth.urls')),
+    path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('login/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('register/', views.RegisterView.as_view(), name='auth_register'),
     path('', include(router.urls)),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('', views.index, name='index'),
-    path('register/', views.RegisterView.as_view(), name='register'),
-    path('login/', LoginView.as_view(
-        template_name='lobby/login.html',
-        redirect_authenticated_user=True),
-        name='login'),
-    path('logged_out/', LogoutView.as_view(
-        # template_name='lobby/logged_out.html',
-        next_page=settings.LOGOUT_REDIRECT_URL),
-        name='logged_out'),
-    path("hello/<name>", views.hello_there, name="hello_there"),
 ]

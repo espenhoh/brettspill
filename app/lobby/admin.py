@@ -9,6 +9,12 @@ from .models import Spiller, Spill, SpillerISpill
 admin.site.site_header = "Lobby Admin"
 
 
+# admin.register() decorator
+@admin.register(Spill)
+class SpillAdmin(admin.ModelAdmin):
+    list_display = ('pk', 'spill_navn', 'spill_type', 'start_tid')
+
+
 class SpillerAdmin(UserAdmin):
     add_form = SpillerRegistreringForm
     # form = CustomUserChangeForm
@@ -33,6 +39,6 @@ class SpillerAdmin(UserAdmin):
 
 
 admin.site.register(Spiller, SpillerAdmin)
-admin.site.register(Spill)
+# admin.site.register(Spill)
 admin.site.register(SpillerISpill)
 
