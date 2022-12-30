@@ -10,8 +10,11 @@ from lobby.forms import SpillerRegistreringForm
 from django.views import View
 from django.views.generic import TemplateView
 # REST things
-from rest_framework import viewsets, generics
+from rest_framework.views import APIView
+from rest_framework import viewsets, generics, status
+from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework_simplejwt.tokens import RefreshToken
 from lobby.models import Spiller, Spill
 from lobby.serializers import RegisterSerializer
 from lobby.serializers import SpillSerializer
@@ -66,21 +69,18 @@ class RegisterView2(View):
         # return redirect('redirect to a new page')
 
 
-def hello_there(request, name):
-    now = datetime.now()
-    formatted_now = now.strftime("%A, %d %B, %Y at %X")
+class LogoutView(APIView):
+    permission_classes = (IsAuthenticated,)
 
-    # Filter the name argument to letters only using regular expressions. URL arguments
-    # can contain arbitrary text, so we restrict to safe characters only.
-    match_object = re.match("[a-zA-Z]+", name)
+    def post(self, request):
+        try:
+            refresh_token = request.data["refresh_token"]
+            token = RefreshToken(refresh_token)
+            token.blacklist()
 
-    if match_object:
-        clean_name = match_object.group(0)
-    else:
-        clean_name = "Friend"
-
-    content = "Hello there, " + clean_name + "! It's " + formatted_now
-    return HttpResponse(content)
+            return Response(status=status.HTTP_205_RESET_CONTENT)
+        except Exception:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 class SpillerViewSet(viewsets.ModelViewSet):

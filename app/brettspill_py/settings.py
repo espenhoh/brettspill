@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'colorfield',
     'rest_framework',
+    'rest_framework_simplejwt.token_blacklist',
     'corsheaders',  # Allows Cross-Origin Resource Sharing
     'django_extensions',
     'lobby.apps.LobbyConfig',
@@ -82,6 +83,7 @@ CORS_ALLOW_CREDENTIALS = True
 SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': timedelta(days=15),
     'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
 }
 
 

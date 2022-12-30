@@ -32,6 +32,7 @@ router.register(r'spill', views.SpillViewSet)
 urlpatterns = [
     path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('login/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('logout/', views.LogoutView.as_view(), name='auth_logout'),
     path('register/', views.RegisterView.as_view(), name='auth_register'),
     path('', include(router.urls)),
 ]
