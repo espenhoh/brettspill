@@ -35,6 +35,7 @@ poetry config cache-dir "c:/Dev/poetry/cache"
 #start WSL og cd /mnt/c/Dev/projects/Brettspill/brettspill-py
 docker build -t brettspill-py:latest .
 docker-compose -f docker-compose.dev.yml up --build
+http://brettspill.localhost:8008/lobby/
 
 # Migrations
 docker compose -f docker-compose.dev.yml exec brettspill python manage.py makemigrations
