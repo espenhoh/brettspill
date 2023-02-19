@@ -21,7 +21,6 @@ class Spill(models.Model):
         max_length=25,
         help_text="Navn for å kjenne igjen spillet senere.",
     )
-    
     spill_type = models.CharField(
         max_length=4,
         choices=SpillType.choices,
@@ -32,8 +31,9 @@ class Spill(models.Model):
         settings.AUTH_USER_MODEL,
         through='SpillerISpill'
     )
-    start_tid = models.DateTimeField()
-    slutt_tid = models.DateTimeField()
+    opprettet_tid = models.DateTimeField(auto_now_add=True)
+    start_tid = models.DateTimeField(null=True, blank=True)
+    slutt_tid = models.DateTimeField(null=True, blank=True)
 
 
 class SpillerISpill(models.Model):
