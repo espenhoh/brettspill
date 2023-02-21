@@ -34,6 +34,10 @@ poetry config cache-dir "c:/Dev/poetry/cache"
 #Utvikling
 #start WSL og cd /mnt/c/Dev/projects/Brettspill/brettspill-py
 docker build -t brettspill-py:latest .
+
+# Lage cert filer for lokal SSL: openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -nodes
+# FLyttes til app
+
 docker-compose -f docker-compose.dev.yml up --build
 http://brettspill.localhost:8008/lobby/
 
