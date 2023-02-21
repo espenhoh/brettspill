@@ -1,6 +1,25 @@
 ## middlewares.yml
 http:
   routers:
-    brettspill:
-      rule: "Host(`localhost`)" #" && PathPrefix(`/brettspill`)"
-      service: brettspill
+    traefik:
+      rule: "Host(`traefik.docker.localhost`)"
+      service: "api@internal"
+      tls:
+        domains:
+          - main: "docker.localhost"
+            sans:
+              - "*.docker.localhost"
+          - main: "domain.local"
+            sans:
+              - "*.domain.local"
+
+tls:
+  stores:
+    default:
+      defaultCertificate:
+        certFile: "/etc/certs/cert.pem"
+        keyFile: "/etc/certs/key.pem"
+
+  certificates:
+    - certFile: "/etc/certs/cert.pem"
+      keyFile: "/etc/certs/key.pem"

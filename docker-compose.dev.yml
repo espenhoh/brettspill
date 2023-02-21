@@ -8,8 +8,8 @@ services:
     depends_on:
       - "db"
     build: .
-    command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; python manage.py runserver 0.0.0.0:8000'
-    expose:  # new
+    command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; uvicorn brettspill_py.asgi:application --host 0.0.0.0 --port 8000'
+    expose:
       - 8000
     env_file:
       - ./env/brettspill.env
@@ -17,9 +17,12 @@ services:
       - ./app:/app
     networks:
       - brettspill-backend
+      - brettspill-frontend
     labels: # new
       - "traefik.enable=true"
       - "traefik.http.routers.brettspill.rule=Host(`brettspill.localhost`)"
+      - "traefik.http.routers.brettspill.tls=true"
+      - "traefik.docker.network=brettspill_frontend"
     
   db:
     image: postgres:13.3-alpine
@@ -55,15 +58,21 @@ services:
 
   traefik: # new
     image: traefik:v2.8.1
-
+    container_name: "traefik"
+    labels:
+     - "traefik.enable=true"
+     - "traefik.http.routers.traefik=true"
     networks:
       - brettspill-backend
     ports:  #"ute:inne"
-      - 8008:80
-      - 8081:8080
+      - 80:80
+      - 8001:8000
+      - 8080:8080
+      - 443:443
     volumes:
-      - "./traefik.dev.yml:/etc/traefik/traefik.yml"
-      - "./traefik.routes.dev.yml:/etc/traefik/traefik.routes.yml"
+      - "./app/.certs/:/etc/certs:ro"
+      - "./traefik.dev.yml:/etc/traefik/traefik.yml:ro"
+      - "./traefik.routes.dev.yml:/etc/traefik/config.yml:ro"
       - "/mnt/wsl/shared-docker/docker.sock:/var/run/docker.sock:ro"
 
 networks:
