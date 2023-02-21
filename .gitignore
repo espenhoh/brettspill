@@ -15,6 +15,7 @@ password.py
 notes
 
 #Filtyper
+*.pem
 *.env
 *.tar
 *.pyc
