@@ -27,7 +27,7 @@ from rest_framework_simplejwt.views import (
 router = routers.DefaultRouter()
 router.register(r'spillere', views.SpillerViewSet)
 # router.register(r'groups', views.GroupViewSet)
-router.register(r'spill', views.SpillViewSet)
+router.register(r'spill', views.SpillViewSet, basename='spill')
 
 urlpatterns = [
     path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
