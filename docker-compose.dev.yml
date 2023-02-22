@@ -8,7 +8,8 @@ services:
     depends_on:
       - "db"
     build: .
-    command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; uvicorn brettspill_py.asgi:application --host 0.0.0.0 --port 8000'
+    command:  bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; python manage.py runserver 0.0.0.0:8000'
+    # bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; uvicorn brettspill_py.asgi:application --host 0.0.0.0 --port 8000 --reload'
     expose:
       - 8000
     env_file:
@@ -22,7 +23,7 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.brettspill.rule=Host(`brettspill.localhost`)"
       - "traefik.http.routers.brettspill.tls=true"
-      - "traefik.docker.network=brettspill_frontend"
+      - "traefik.docker.network=brettspill-frontend"
     
   db:
     image: postgres:13.3-alpine
@@ -58,7 +59,7 @@ services:
       - "traefik.http.routers.pgadmin.tls=true"
 
   traefik: # new
-    image: traefik:v2.8.1
+    image: traefik:v2.9.8
     container_name: "traefik"
     labels:
      - "traefik.enable=true"
