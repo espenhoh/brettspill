@@ -66,7 +66,7 @@ class GroupSerializer(FlexFieldsModelSerializer):
 class SpillSerializer(FlexFieldsModelSerializer):
 
     spill_type_navn = serializers.SerializerMethodField(
-        source='get_spill_type_navn'
+        source='get_spill_type_display'
     )
 
     class Meta:
@@ -75,6 +75,3 @@ class SpillSerializer(FlexFieldsModelSerializer):
         expandable_fields = {
             'spillere': ('lobby.SpillerSerializer', {'many': True})
         }
-
-    def get_spill_type_navn(self, obj):
-        return obj.get_spill_type_display()
