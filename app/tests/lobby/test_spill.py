@@ -20,8 +20,7 @@ class AnimalTestCase(TestCase):
             spill_navn="test_spill",
             spill_type=Spill.SpillType.MONOPOL,
             start_tid=nå,
-            slutt_tid=nå,
-            vert=Spiller.objects.get(username="testuser")
+            slutt_tid=nå
         )
 
     def test_spill_er_monopol(self):

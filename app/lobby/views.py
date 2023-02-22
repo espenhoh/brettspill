@@ -1,14 +1,5 @@
 # views.py
-# from django.contrib.auth.forms import UserCreationForm
-# from django.contrib import messages
-from django.utils.timezone import datetime
-import re
-from django.http import HttpResponse
-from django.shortcuts import render, redirect, reverse
-from lobby.forms import SpillerRegistreringForm
-# from django.contrib.auth.views import LoginView, LogoutView
-from django.views import View
-from django.views.generic import TemplateView
+import json
 # REST things
 from rest_framework.views import APIView
 from rest_framework import viewsets, generics, status
@@ -19,15 +10,7 @@ from lobby.models import Spiller, Spill
 from lobby.serializers import RegisterSerializer
 from lobby.serializers import SpillSerializer
 from lobby.serializers import SpillerSerializer
-
-
-class HomeView(TemplateView):
-    template_name = "brettspill/index.html"
-
-    def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            return redirect('members:members-home')
-        return super(HomeView, self).dispatch(request, *args, **kwargs)
+from rest_framework.decorators import action
 
 
 class RegisterView(generics.CreateAPIView):
@@ -66,3 +49,10 @@ class SpillViewSet(viewsets.ModelViewSet):
     queryset = Spill.objects.all()
     serializer_class = SpillSerializer
     permission_classes = []
+
+    @action(detail=False)
+    def get_alle_spill_typer(self, request):
+        choices = dict(Spill.SpillType.choices)
+        choices_json = json.dumps(choices)
+        return Response(choices_json)
+
