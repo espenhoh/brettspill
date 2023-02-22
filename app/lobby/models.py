@@ -16,6 +16,7 @@ class Spiller(AbstractUser):
 class Spill(models.Model):
     class SpillType(models.TextChoices):
         MONOPOL = 'MPOL', 'Monopol'
+        FIREPÅRAD = '4PRA', 'Fire på rad'
 
     spill_navn = models.CharField(
         max_length=25,
