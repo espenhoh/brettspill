@@ -53,6 +53,5 @@ class SpillViewSet(viewsets.ModelViewSet):
     @action(detail=False)
     def get_alle_spill_typer(self, request):
         choices = dict(Spill.SpillType.choices)
-        choices_json = json.dumps(choices)
-        return Response(choices_json)
+        return Response(choices)
 
