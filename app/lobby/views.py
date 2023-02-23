@@ -52,6 +52,13 @@ class SpillViewSet(viewsets.ModelViewSet):
 
     @action(detail=False)
     def get_alle_spill_typer(self, request):
-        choices = dict(Spill.SpillType.choices)
-        return Response(choices)
+        spilltyper = Spill.SpillType.choices
+        my_choices_dict = [
+            {
+                'value': spilltype[0],
+                'label': spilltype[1]
+            }
+            for spilltype in spilltyper
+        ]
+        return Response(my_choices_dict)
 
