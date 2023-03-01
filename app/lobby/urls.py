@@ -15,6 +15,8 @@ Including another URLconf
 """
 # from django.contrib import admin
 import lobby.views as views
+from brettspill_py import settings
+from django.conf.urls.static import static
 
 from django.urls import path, include
 from rest_framework import routers
@@ -30,9 +32,9 @@ router.register(r'spillere', views.SpillerViewSet)
 router.register(r'spill', views.SpillViewSet, basename='spill')
 
 urlpatterns = [
-    path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('login/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('logout/', views.LogoutView.as_view(), name='auth_logout'),
-    path('register/', views.RegisterView.as_view(), name='auth_register'),
-    path('', include(router.urls)),
-]
+    path('api/login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/login/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/logout/', views.LogoutView.as_view(), name='auth_logout'),
+    path('api/register/', views.RegisterView.as_view(), name='auth_register'),
+    path('api/', include(router.urls)),
+] + static('h/', document_root=settings.STATIC_ROOT)
