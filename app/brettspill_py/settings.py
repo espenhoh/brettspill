@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    # 'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'colorfield',
     'rest_framework',
@@ -60,7 +61,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # new
+    # 'whitenoise.middleware.WhiteNoiseMiddleware',  # new
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -158,16 +159,22 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_URL = '/static/'
+#STATICFILES_FINDERS =[
+#    'django.contrib.staticfiles.finders.FileSystemFinder',
+#]
+
+STATIC_URL = 'static/'
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# compresses your files and hashes them to unique names, so they can safely be cached forever
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
+WHITENOISE_INDEX_FILE = 'index.html'
 
 STATICFILES_DIRS = [
-    BASE_DIR / "frontend/static",
-    BASE_DIR / "lobby/lobby/public",
-    # '/var/www/static/',
+    # BASE_DIR / "lobby/static",
 ]
 
 LOGOUT_REDIRECT_URL = '/lobby/login/'
