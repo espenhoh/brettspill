@@ -15,16 +15,14 @@ Including another URLconf
 """
 # from django.contrib import admin
 import lobby.views as views
-from brettspill_py import settings
-from django.conf.urls.static import static
+from django.views.generic.base import RedirectView
 
-from django.urls import path, include
+from django.urls import re_path, path, include
 from rest_framework import routers
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
-
 
 router = routers.DefaultRouter()
 router.register(r'spillere', views.SpillerViewSet)
@@ -37,4 +35,6 @@ urlpatterns = [
     path('api/logout/', views.LogoutView.as_view(), name='auth_logout'),
     path('api/register/', views.RegisterView.as_view(), name='auth_register'),
     path('api/', include(router.urls)),
-] + static('h/', document_root=settings.STATIC_ROOT)
+    path('home/', RedirectView.as_view(url='/static/lobby/index.html')),
+    # re_path(r'^home/(?P<path>.*)$', RedirectView.as_view(url='static/lobby/index.html')),
+] 
