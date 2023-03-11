@@ -35,6 +35,6 @@ urlpatterns = [
     path('api/logout/', views.LogoutView.as_view(), name='auth_logout'),
     path('api/register/', views.RegisterView.as_view(), name='auth_register'),
     path('api/', include(router.urls)),
-    path('home/', RedirectView.as_view(url='/static/lobby/index.html')),
+    # path('home/', RedirectView.as_view(url='/static/lobby/index.html')),
     # re_path(r'^home/(?P<path>.*)$', RedirectView.as_view(url='static/lobby/index.html')),
 ] 
