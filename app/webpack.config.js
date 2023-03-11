@@ -18,6 +18,7 @@ module.exports = {
       filename: './webpack-stats.json',
     }),
   ],
+  devtool: 'eval-source-map',
   module: {
     rules: [
       {
