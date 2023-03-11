@@ -54,6 +54,8 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt.token_blacklist',
     'corsheaders',  # Allows Cross-Origin Resource Sharing
     'django_extensions',
+    'webpack_loader',
+    'frontend',
     'lobby.apps.LobbyConfig',
     'gomoku.apps.GomokuConfig',
     'api',

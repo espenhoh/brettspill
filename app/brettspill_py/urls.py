@@ -26,7 +26,8 @@ urlpatterns = [
     # path('', include('gomoku.urls')),
     # path('api/', include('api.urls')),
     # path('frontend/', include('frontend.urls')),
-    path('', RedirectView.as_view(url='lobby/home/')),
+    path("", include("frontend.urls"))
+    # path('', RedirectView.as_view(url='lobby/home/')),
 
 ]
 
