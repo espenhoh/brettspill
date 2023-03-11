@@ -13,6 +13,7 @@ venv
 #Filer
 password.py
 notes
+webpack-stats.json
 
 #Filtyper
 *.pem
