@@ -26,12 +26,12 @@ const Sidenav = () => {
               request.user
             </li>
             <li>
-              <NavLink className={(navData) => navData.isActive ? styles.active : ''} to="/lobby/spill">
+              <NavLink className={(navData) => navData.isActive ? styles.active : ''} to="/spill">
                 Spilliste
               </NavLink>
             </li>
             <li>
-              <NavLink className={(navData) => navData.isActive ? styles.active : ''} to="/lobby/lag_spill">
+              <NavLink className={(navData) => navData.isActive ? styles.active : ''} to="/lag_spill">
                 Lag spill
               </NavLink>
             </li>
@@ -45,12 +45,12 @@ const Sidenav = () => {
         {!isAuthenticated && (
           <React.Fragment>
             <li>
-              <NavLink className={(navData) => navData.isActive ? styles.active : ''} to="/lobby/register">
+              <NavLink className={(navData) => navData.isActive ? styles.active : ''} to="/register">
                 Registrer deg
               </NavLink>
             </li>
             <li>
-              <NavLink className={(navData) => navData.isActive ? styles.active : ''} to="/lobby/login">
+              <NavLink className={(navData) => navData.isActive ? styles.active : ''} to="/login">
                 Logg inn
               </NavLink>
             </li>
