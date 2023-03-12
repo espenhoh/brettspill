@@ -142,6 +142,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+APPEND_SLASH = True
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
@@ -178,10 +180,6 @@ WHITENOISE_INDEX_FILE = 'index.html'
 STATICFILES_DIRS = [
     # BASE_DIR / "lobby/static",
 ]
-
-LOGOUT_REDIRECT_URL = '/lobby/login/'
-LOGIN_REDIRECT_URL = '/'
-
 
 # Email settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
