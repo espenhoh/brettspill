@@ -60,7 +60,7 @@ const Login = (props) => {
   return (
     <React.Fragment>
       <h1>Logg deg inn!</h1>
-      <Form method="post" action="/lobby/spill/">
+      <Form method="post" action="/spill/">
         <table>
           <tbody>
             <FormElement
@@ -109,5 +109,5 @@ export async function loginAction({request}) {
   }
   console.log(post);
 
-  return redirect('/lobby/spill/');
+  return redirect('/spill/');
 };

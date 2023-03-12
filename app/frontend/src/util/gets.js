@@ -5,12 +5,12 @@ function erOK(response) {
 }
 
 export async function getSpillListe() {
-  const data = await get(`https://brettspill.localhost/lobby/spill/`);
+  const data = await get(`/lobby/spill/`);
   return data;
 }
 
 export async function getSpill(id) {
-  const data = await get(`https://brettspill.localhost/lobby/spill/${id}`);
+  const data = await get(`/lobby/spill/${id}`);
   return data;
 }
 

@@ -30,11 +30,11 @@ router.register(r'spillere', views.SpillerViewSet)
 router.register(r'spill', views.SpillViewSet, basename='spill')
 
 urlpatterns = [
-    path('api/login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/login/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('api/logout/', views.LogoutView.as_view(), name='auth_logout'),
-    path('api/register/', views.RegisterView.as_view(), name='auth_register'),
-    path('api/', include(router.urls)),
+    path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('login/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('logout/', views.LogoutView.as_view(), name='auth_logout'),
+    path('register/', views.RegisterView.as_view(), name='auth_register'),
+    path('', include(router.urls)),
     # path('home/', RedirectView.as_view(url='/static/lobby/index.html')),
     # re_path(r'^home/(?P<path>.*)$', RedirectView.as_view(url='static/lobby/index.html')),
 ] 
