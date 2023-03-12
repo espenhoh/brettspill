@@ -4,6 +4,7 @@ import FormElement from "../components/UI/FormElement";
 import useInput from "../hooks/use-input";
 
 import { useDispatch } from "react-redux";
+import store from "../store/index";
 import { authActions} from "../store/authSlice";
 
 //import styles from "./LoginContent.module.css";
@@ -102,6 +103,8 @@ export default Login;
 
 
 export async function loginAction({request}) {
+  store.dispatch(authActions.login());
+
   const formData = await request.formData();
   const post = {
     brukernavn: formData.get('Kallenavn'),
