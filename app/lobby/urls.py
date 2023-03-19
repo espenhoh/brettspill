@@ -18,13 +18,13 @@ import lobby.views as views
 from django.views.generic.base import RedirectView
 
 from django.urls import re_path, path, include
-from rest_framework import routers
+from .routers import OptionalSlashRouter
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
 
-router = routers.DefaultRouter()
+router = OptionalSlashRouter()
 router.register(r'spillere', views.SpillerViewSet)
 # router.register(r'groups', views.GroupViewSet)
 router.register(r'spill', views.SpillViewSet, basename='spill')
