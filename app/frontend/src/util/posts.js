@@ -5,8 +5,7 @@ function erOK(response) {
 }
 
 export async function postNyttSpill(payload) {
-  await post('/lobby/spill/', payload);
-  return;
+  return await post('/lobby/spill/', payload);
 }
 
 async function post(url, payload) {
@@ -19,7 +18,7 @@ async function post(url, payload) {
       throw { message: "Failed to post", status: response.status };
     }
 
-    return;
+    return response.data;
   } catch (error) {
     console.log(error);
   }
