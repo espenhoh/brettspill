@@ -6,6 +6,8 @@ import { authActions } from "../../store/authSlice";
 
 import styles from "./Sidenav.module.css";
 
+const checkActive = (navData) => navData.isActive ? styles.active : '';
+
 const Sidenav = () => {
   const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
@@ -26,17 +28,17 @@ const Sidenav = () => {
               request.user
             </li>
             <li>
-              <NavLink className={(navData) => navData.isActive ? styles.active : ''} to="/spill">
+              <NavLink className={checkActive} to="/spill">
                 Spilliste
               </NavLink>
             </li>
             <li>
-              <NavLink className={(navData) => navData.isActive ? styles.active : ''} to="/lag_spill">
+              <NavLink className={checkActive} to="/lag_spill">
                 Lag spill
               </NavLink>
             </li>
             <li>
-              <NavLink className={(navData) => navData.isActive ? styles.active : ''} to="/"  onClick={logoutHandler}>
+              <NavLink className={checkActive} to="/"  onClick={logoutHandler}>
                 Logg ut
               </NavLink>
             </li>
@@ -45,12 +47,12 @@ const Sidenav = () => {
         {!isAuthenticated && (
           <React.Fragment>
             <li>
-              <NavLink className={(navData) => navData.isActive ? styles.active : ''} to="/register">
+              <NavLink className={checkActive} to="/register">
                 Registrer deg
               </NavLink>
             </li>
             <li>
-              <NavLink className={(navData) => navData.isActive ? styles.active : ''} to="/login">
+              <NavLink className={checkActive} to="/login">
                 Logg inn
               </NavLink>
             </li>
