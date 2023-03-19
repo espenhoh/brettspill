@@ -35,6 +35,9 @@ poetry config cache-dir "c:/Dev/poetry/cache"
 #start WSL og cd /mnt/c/Dev/projects/Brettspill/brettspill-py
 docker build -t brettspill-py:latest .
 
+#react utvikling
+npm run dev
+
 # Lage cert filer for lokal SSL: openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -nodes
 # FLyttes til app
 
