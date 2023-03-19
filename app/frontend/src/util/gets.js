@@ -37,12 +37,7 @@ export async function getSpillTyper() {
       }
     );
 
-    return {
-      standardType: response.data[1].value,
-      navn: response.data,
-    };
-    //setSpillTypeNavn(response.data);
-    //setSpillType(response.data[1].value);
+    return response.data;
   } catch (error) {
     console.log(error);
   }
