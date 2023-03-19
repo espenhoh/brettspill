@@ -6,7 +6,6 @@ import React, { useState, useEffect, useRef } from "react";
 import Button from "../components/UI/Button";
 import FormElement from "../components/UI/FormElement";
 import useInput from "../hooks/use-input";
-import { getSpillTyper } from "../util/gets";
 import { postNyttSpill } from "../util/posts";
 
 const INPUT_IDS = {
@@ -95,7 +94,3 @@ const CreateGame = (props) => {
 };
 
 export default CreateGame;
-
-export function spillTypeLoader() {
-  return getSpillTyper();
-}

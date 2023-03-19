@@ -2,7 +2,6 @@ import React, { useEffect, useState, useCallback } from "react";
 import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
 
-import { getSpillListe } from '../util/gets';
 import { slettSpill } from '../util/deletes';
 
 //import styles from "./Home.module.css";
@@ -71,7 +70,3 @@ const Spilliste = (props) => {
 };
 
 export default Spilliste;
-
-export function loader() {
-  return getSpillListe();
-}
