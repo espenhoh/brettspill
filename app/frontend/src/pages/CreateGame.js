@@ -1,9 +1,10 @@
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLoaderData } from "react-router-dom";
 import React, { useState, useEffect, useRef } from "react";
 import Button from "../components/UI/Button";
 import FormElement from "../components/UI/FormElement";
 import useInput from "../hooks/use-input";
+import { getSpillTyper } from "../util/gets";
 
 const INPUT_IDS = {
   spillNavn: "spillnavn",
@@ -13,9 +14,12 @@ const INPUT_IDS = {
 //import styles from "./LoginContent.module.css";
 
 const CreateGame = (props) => {
-  const [spillTypeNavn, setSpillTypeNavn] = useState();
+  const spillTypeNavn = useLoaderData();
+
   const [spillType, setSpillType] = useState();
+
   const navigate = useNavigate();
+
   const {
     value: spillNavn,
     hasError: spillNavnHasError,
@@ -53,24 +57,8 @@ const CreateGame = (props) => {
   };
 
   useEffect(() => {
-    const setSpillTyper = async () => {
-      try {
-        const response = await axios.get(
-          "https://brettspill.localhost/lobby/spill/get_alle_spill_typer/",
-          {
-            headers: { Accept: "application/json" },
-          }
-        );
-        setSpillTypeNavn(response.data);
-        setSpillType(response.data[1].value);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
     document.title = "Opprett et spill";
-
-    setSpillTyper();
+    setSpillType(spillTypeNavn[0].value);
   }, []);
 
   const spillTypeChangeHandler = (e) => {
@@ -87,7 +75,7 @@ const CreateGame = (props) => {
             <FormElement
               ref={spillNavnInputRef}
               id={INPUT_IDS.spillNavn}
-              label="Kallenavn"
+              label="Spillnavn"
               type="text"
               hasError={spillNavnHasError}
               value={spillNavn}
@@ -107,7 +95,7 @@ const CreateGame = (props) => {
         </table>
 
         <Button type="submit" className="reg-button" disabled={false}>
-          Registrer
+          Opprett
         </Button>
       </form>
     </React.Fragment>
@@ -115,3 +103,7 @@ const CreateGame = (props) => {
 };
 
 export default CreateGame;
+
+export function spillTypeLoader() {
+  return getSpillTyper();
+}

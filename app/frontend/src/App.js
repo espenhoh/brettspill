@@ -10,7 +10,7 @@ import {
 import Login, {loginAction} from "./pages/Login";
 import Spilliste,  { loader as spillListeLoader } from "./pages/Spilliste";
 import SpillLobby, { spillLoader } from "./pages/SpillLobby";
-import CreateGame from "./pages/CreateGame";
+import CreateGame, { spillTypeLoader } from "./pages/CreateGame";
 
 import "./index.css";
 import Register from "./pages/Register";
@@ -24,7 +24,7 @@ const router = createBrowserRouter(
       <Route index element={<Navigate replace to="login" />} />
       <Route path="spill/" element={<Spilliste />} loader={spillListeLoader} action={loginAction}/>
       <Route path="spill/:spillId" element={<SpillLobby />} loader={spillLoader} />
-      <Route path="lag_spill" element={<CreateGame />} />
+      <Route path="lag_spill" element={<CreateGame />} loader={spillTypeLoader}/>
       <Route path="login" element={<Login />} />
       <Route path="register" element={<Register />} />
       <Route path="*" element={<IkkeFunnet />} />
