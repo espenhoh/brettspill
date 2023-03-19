@@ -27,3 +27,23 @@ async function get(url) {
     console.error(error);
   }
 }
+
+export async function getSpillTyper() {
+  try {
+    const response = await axios.get(
+      "/lobby/spill/get_alle_spill_typer/",
+      {
+        headers: { Accept: "application/json" },
+      }
+    );
+
+    return {
+      standardType: response.data[1].value,
+      navn: response.data,
+    };
+    //setSpillTypeNavn(response.data);
+    //setSpillType(response.data[1].value);
+  } catch (error) {
+    console.log(error);
+  }
+};
