@@ -1,10 +1,13 @@
 import axios from "axios";
 import { useNavigate, useLoaderData } from "react-router-dom";
 import React, { useState, useEffect, useRef } from "react";
+
+
 import Button from "../components/UI/Button";
 import FormElement from "../components/UI/FormElement";
 import useInput from "../hooks/use-input";
 import { getSpillTyper } from "../util/gets";
+import { postNyttSpill } from "../util/posts";
 
 const INPUT_IDS = {
   spillNavn: "spillnavn",
@@ -35,25 +38,14 @@ const CreateGame = (props) => {
 
   const submitHandler = async (event) => {
     event.preventDefault();
-    //Vi vil ikke at spilleren skal kunne gå tilbake, da hadde vu brukt push.
-    navigate("/lobby/spill/1", { replace: true });
 
-    return;
-    const payload = {
+    const nyttSpill = await postNyttSpill({
       spill_navn: spillNavn,
       spill_type: spillType,
-    };
-    try {
-      const response = await axios.post(
-        "https://brettspill.localhost/lobby/spill/",
-        payload,
-        {
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-    } catch (error) {
-      console.log(error);
-    }
+    });
+
+    //Vi vil ikke at spilleren skal kunne gå tilbake, da hadde vu brukt push.'
+    navigate(`/spill/${ nyttSpill.id }/`, { replace: true });
   };
 
   useEffect(() => {
