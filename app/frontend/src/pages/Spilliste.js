@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { Link, useLoaderData } from "react-router-dom";
+import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
 
 import { getSpillListe } from '../util/gets';
+import { slettSpill } from '../util/deletes';
 
 //import styles from "./Home.module.css";
 
@@ -22,10 +23,20 @@ const liste = [{
 
 const Spilliste = (props) => {
   const spillListe = useLoaderData();
+  const navigate = useNavigate();
 
   useEffect(() => {
     document.title = "Spilliste";
   }, []);
+
+
+  const slettSpillHandler = (spillId) => {
+    return async () => {
+      console.log(`Sletter ${spillId}`);
+      await slettSpill(spillId);
+      navigate('/spill/', { replace: true });
+    };
+  };
 
   return (
     <React.Fragment>
@@ -50,6 +61,7 @@ const Spilliste = (props) => {
               <td>{spill.spill_type_navn}</td>
               <td>{spill.start_tid ? dayjs(spill.start_tid).format(DATE_FORMAT) : 'Ikke startet'}</td>
               <td>{spill.slutt_tid ? dayjs(spill.slutt_tid).format(DATE_FORMAT) : 'Ikke ferdig'}</td>
+              <td><button onClick={slettSpillHandler(spill.id)}>slett</button></td>
             </tr>
           ))}
         </tbody>
