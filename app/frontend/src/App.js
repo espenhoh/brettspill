@@ -21,12 +21,12 @@ import Feilside from "./pages/Feilside";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />} errorElement={<Feilside/>}>
-      <Route index element={<Navigate replace to="/login" />} />
-      <Route path="/spill/" element={<Spilliste />} loader={spillListeLoader} action={loginAction}/>
-      <Route path="/spill/:spillId" element={<SpillLobby />} loader={spillLoader} />
-      <Route path="/lag_spill" element={<CreateGame />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
+      <Route index element={<Navigate replace to="login" />} />
+      <Route path="spill/" element={<Spilliste />} loader={spillListeLoader} action={loginAction}/>
+      <Route path="spill/:spillId" element={<SpillLobby />} loader={spillLoader} />
+      <Route path="lag_spill" element={<CreateGame />} />
+      <Route path="login" element={<Login />} />
+      <Route path="register" element={<Register />} />
       <Route path="*" element={<IkkeFunnet />} />
     </Route>
   )
