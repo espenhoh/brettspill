@@ -55,7 +55,7 @@ const Spilliste = (props) => {
           {spillListe.map((spill) => (
             <tr key={spill.id}>
               <td>
-                <Link to={`/spill/${spill.id}/`}>{spill.spill_navn}</Link>
+                <Link to={`${spill.id}/`}>{spill.spill_navn}</Link>
               </td> 
               <td>{spill.spill_type_navn}</td>
               <td>{spill.start_tid ? dayjs(spill.start_tid).format(DATE_FORMAT) : 'Ikke startet'}</td>
