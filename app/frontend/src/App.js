@@ -21,7 +21,7 @@ import { getSpillListe, getSpill, getSpillTyper } from "./util/gets";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/hjem" element={<Layout />} errorElement={<Feilside />}>
+    <Route path="/" element={<Layout />} errorElement={<Feilside />}>
       <Route index element={<Navigate replace to="login" />} />
       <Route
         path="spill/"

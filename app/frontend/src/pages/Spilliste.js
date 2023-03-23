@@ -21,7 +21,7 @@ const liste = [{
 ];
 
 const Spilliste = (props) => {
-  const spillListe = useLoaderData();
+  const spillListe = useLoaderData().data;
   const navigate = useNavigate();
 
   useEffect(() => {

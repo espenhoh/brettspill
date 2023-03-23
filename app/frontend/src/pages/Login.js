@@ -110,7 +110,6 @@ export async function loginAction({request}) {
     brukernavn: formData.get('Kallenavn'),
     passord: formData.get('Passord'),
   }
-  console.log(post);
 
   return redirect('/spill/');
 };

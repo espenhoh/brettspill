@@ -16,7 +16,7 @@ const INPUT_IDS = {
 //import styles from "./LoginContent.module.css";
 
 const CreateGame = (props) => {
-  const spillTypeNavn = useLoaderData();
+  const spillTypeNavn = useLoaderData().data;
 
   const [spillType, setSpillType] = useState();
 

@@ -13,7 +13,7 @@ const Feilside = () => {
             <Sidenav/>
             <main>
                 <h1>Det har skjedd en feil!</h1>
-                <p>{error.message}</p>
+                <p>{error.data.message}</p>
             </main>
         </>
     )

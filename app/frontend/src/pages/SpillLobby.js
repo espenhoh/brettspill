@@ -5,7 +5,7 @@ import { getSpill } from "../util/gets";
 
 const SpillLobby = () => {
   const params = useParams();
-  const spillDetaljer = useLoaderData();
+  const spillDetaljer = useLoaderData().data;
 
   const id = parseInt(params.spillId);
 
