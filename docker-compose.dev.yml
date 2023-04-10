@@ -21,9 +21,10 @@ services:
       - brettspill-frontend
     labels: # new
       - "traefik.enable=true"
+      # docker inspect <container_id>
+      - "traefik.docker.network=brettspill-py_brettspill-frontend"
       - "traefik.http.routers.brettspill.rule=Host(`brettspill.localhost`)"
       - "traefik.http.routers.brettspill.tls=true"
-      - "traefik.docker.network=brettspill-frontend"
     
   db:
     image: postgres:13.3-alpine
@@ -61,19 +62,22 @@ services:
   traefik: # new
     image: traefik:v2.9.8
     container_name: "traefik"
-    labels:
-     - "traefik.enable=true"
-     - "traefik.http.routers.traefik=true"
     networks:
-      - brettspill-backend
+      - brettspill-frontend
     ports:  #"ute:inne"
       - 80:80
       - 443:443
     volumes:
       - "./app/.certs/:/etc/certs:ro"
+      # At startup, Traefik searches for static configuration in a file named traefik.yml (or traefik.yaml or traefik.toml) in /etc/traefik/
       - "./traefik.dev.yml:/etc/traefik/traefik.yml:ro"
       - "./traefik.routes.dev.yml:/etc/traefik/config.yml:ro"
       - "/mnt/wsl/shared-docker/docker.sock:/var/run/docker.sock:ro"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.traefik.rule=Host(`traefik.docker.localhost`)"
+      - "traefik.http.routers.traefik.tls=true"
+      - "traefik.http.routers.traefik.service=api@internal"
 
 networks:
   brettspill-frontend:
