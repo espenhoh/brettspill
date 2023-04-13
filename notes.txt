@@ -40,7 +40,7 @@ npm run dev
 
 # Lage cert filer for lokal SSL: openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -nodes
 # FLyttes til app
-
+docker ps -aq | xargs docker stop | xargs docker rm
 docker-compose -f docker-compose.dev.yml up --build
 http://brettspill.localhost:8008/lobby/
 
