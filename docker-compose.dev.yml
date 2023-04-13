@@ -56,6 +56,8 @@ services:
       - 80
     labels: # new
       - "traefik.enable=true"
+      # docker inspect <container_id>
+      - "traefik.docker.network=brettspill-py_brettspill-frontend"
       - "traefik.http.routers.pgadmin.rule=Host(`pgadmin.localhost`)"
       - "traefik.http.routers.pgadmin.tls=true"
 
