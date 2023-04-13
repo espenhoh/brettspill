@@ -1,7 +1,6 @@
 import axios from "axios";
-import { useNavigate, useLoaderData } from "react-router-dom";
+import { useNavigate, useLoaderData, Form, redirect } from "react-router-dom";
 import React, { useState, useEffect, useRef } from "react";
-
 
 import Button from "../components/UI/Button";
 import FormElement from "../components/UI/FormElement";
@@ -35,18 +34,6 @@ const CreateGame = (props) => {
   const spillNavnInputRef = useRef();
   const spillTypeInputRef = useRef();
 
-  const submitHandler = async (event) => {
-    event.preventDefault();
-
-    const nyttSpill = await postNyttSpill({
-      spill_navn: spillNavn,
-      spill_type: spillType,
-    });
-
-    //Vi vil ikke at spilleren skal kunne gå tilbake, da hadde vu brukt push.'
-    navigate(`/spill/${ nyttSpill.id }/`, { replace: true });
-  };
-
   useEffect(() => {
     document.title = "Opprett et spill";
     setSpillType(spillTypeNavn[0].value);
@@ -60,7 +47,7 @@ const CreateGame = (props) => {
     <React.Fragment>
       <h1>Opprett et spill:</h1>
 
-      <form onSubmit={submitHandler} method="POST" className="form-group">
+      <Form method="POST" className="form-group">
         <table>
           <tbody>
             <FormElement
@@ -88,9 +75,21 @@ const CreateGame = (props) => {
         <Button type="submit" className="reg-button" disabled={false}>
           Opprett
         </Button>
-      </form>
+      </Form>
     </React.Fragment>
   );
+};
+
+export const lagSpill = async ({ request }) => {
+  const formData = await request.formData();
+
+  const nyttSpill = await postNyttSpill({
+    spill_navn: formData.get("Spillnavn"),
+    spill_type: formData.get("Spilltype"),
+  });
+  
+  const ny_url = `/spill/${nyttSpill.id}/`;
+  return redirect(ny_url);
 };
 
 export default CreateGame;
