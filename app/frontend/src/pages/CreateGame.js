@@ -1,5 +1,11 @@
 import axios from "axios";
-import { useNavigate, useLoaderData, Form, redirect } from "react-router-dom";
+import {
+  useNavigate,
+  useLoaderData,
+  Form,
+  redirect,
+  useActionData,
+} from "react-router-dom";
 import React, { useState, useEffect, useRef } from "react";
 
 import Button from "../components/UI/Button";
@@ -15,6 +21,7 @@ const INPUT_IDS = {
 //import styles from "./LoginContent.module.css";
 
 const CreateGame = (props) => {
+  const data = useActionData();
   const spillTypeNavn = useLoaderData().data;
 
   const [spillType, setSpillType] = useState();
@@ -48,6 +55,13 @@ const CreateGame = (props) => {
       <h1>Opprett et spill:</h1>
 
       <Form method="POST" className="form-group">
+        {data && data.errors && (
+          <ul>
+            {Object.entries(data.errors).map((err) => (
+              <li key={err[1]}>{err[0]}: {err[1]}</li>
+            ))}
+          </ul>
+        )}
         <table>
           <tbody>
             <FormElement
@@ -83,11 +97,17 @@ const CreateGame = (props) => {
 export const lagSpill = async ({ request }) => {
   const formData = await request.formData();
 
-  const nyttSpill = await postNyttSpill({
+  const spill_data = {
     spill_navn: formData.get("Spillnavn"),
     spill_type: formData.get("Spilltype"),
-  });
-  
+  };
+
+  const nyttSpill = await postNyttSpill(spill_data);
+
+  if (nyttSpill.status === 400) {
+    return { errors: nyttSpill.data };
+  }
+
   const ny_url = `/spill/${nyttSpill.id}/`;
   return redirect(ny_url);
 };

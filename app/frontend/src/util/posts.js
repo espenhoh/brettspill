@@ -13,13 +13,28 @@ async function post(url, payload) {
     const response = await axios.post(url, payload, {
       headers: { "Content-Type": "application/json" },
     });
+/*
+    if(response.code === 400) {
+      return response;
+    }
 
     if (!erOK(response)) {
       throw { message: "Failed to post", status: response.status };
-    }
+    }*/
 
     return response.data;
   } catch (error) {
-    console.log(error);
+    console.error('Error:', error)
+    if (error.response) {
+      return error.response;
+    } else if (error.request) {
+      // The request was made but no response was received
+      // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+      // http.ClientRequest in node.js
+      console.log(error.request);
+    } else {
+      // Something happened in setting up the request that triggered an Error
+      console.log('Error', error.message);
+    }
   }
 }
