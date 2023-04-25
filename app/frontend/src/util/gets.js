@@ -29,6 +29,5 @@ async function get(url) {
   if (responseType.includes("html")) {
     throw json({ message: `Fant ikke endepunkt: ${url}` }, { status: 404 });
   }
-  console.log(response.headers["content-type"]);
   return response;
 }
