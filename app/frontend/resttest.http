@@ -1,0 +1,23 @@
+GET https://brettspill.localhost/
+
+###
+
+POST https://brettspill.localhost/lobby/register/
+content-type: application/json
+
+{
+  "username": "sampleuser",
+  "email": "tewst@testss.com",
+  "password": "Testpassord123",
+  "password2": "Testpassord123"
+}
+
+###
+
+POST https://brettspill.localhost/lobby/spill/
+content-type: application/json
+
+{
+  "spill_navn": ,
+  "spill_type": "MPOL"
+}
