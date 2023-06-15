@@ -104,8 +104,8 @@ export const lagSpill = async ({ request }) => {
 
   const nyttSpill = await postNyttSpill(spill_data);
 
-  if (nyttSpill.status === 400) {
-    return { errors: nyttSpill.data };
+  if (nyttSpill.errors) {
+    return nyttSpill;
   }
 
   const ny_url = `/spill/${nyttSpill.id}/`;
