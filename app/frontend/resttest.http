@@ -21,3 +21,13 @@ content-type: application/json
   "spill_navn": ,
   "spill_type": "MPOL"
 }
+
+### Login, 
+
+POST https://brettspill.localhost/lobby/login/
+content-type: application/json
+
+{
+  "username": "admin",
+  "password": "admin"
+}
