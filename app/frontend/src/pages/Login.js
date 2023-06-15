@@ -1,11 +1,12 @@
-import React, { useEffect, useRef} from "react";
-import { Link, useNavigate, Form, redirect } from 'react-router-dom';
+import React, { useEffect, useRef } from "react";
+import { Link, useNavigate, Form, redirect } from "react-router-dom";
 import FormElement from "../components/UI/FormElement";
 import useInput from "../hooks/use-input";
 
 import { useDispatch } from "react-redux";
 import store from "../store/index";
-import { authActions} from "../store/authSlice";
+import { authActions } from "../store/authSlice";
+import { postNyttToken } from "../util/posts";
 
 //import styles from "./LoginContent.module.css";
 
@@ -21,7 +22,7 @@ const validPass1 = (pass1) => {
 const usernameIsValid = (username) => {
   const trimmedUsername = username.trim();
   const reUsername = /^[a-z0-9\u00E6\u00F8\u00E5]*$/;
-  return trimmedUsername.length > 6 && reUsername.test(trimmedUsername);
+  return trimmedUsername.length > 4 && reUsername.test(trimmedUsername);
 };
 
 const Login = (props) => {
@@ -35,7 +36,7 @@ const Login = (props) => {
     inputBlurHandler: usernameBlurHandler,
     errorMsg: usernameErrorMsg,
   } = useInput(
-    "Kallenavn må være > 6 tegn og bare bokstaver og tall",
+    "Kallenavn må være > 4 tegn og bare bokstaver og tall",
     usernameIsValid
   );
 
@@ -47,11 +48,8 @@ const Login = (props) => {
     errorMsg: pass1ErrorMsg,
   } = useInput("passord > 7 tegn", validPass1);
 
-
   const usernameInputRef = useRef();
   const passwordInputRef = useRef();
-
-
 
   useEffect(() => {
     document.title = "Logg inn";
@@ -59,9 +57,9 @@ const Login = (props) => {
   }, []);
 
   return (
-    <React.Fragment>
+    <>
       <h1>Logg deg inn!</h1>
-      <Form method="post" action="/spill/">
+      <Form method="post">
         <table>
           <tbody>
             <FormElement
@@ -89,27 +87,31 @@ const Login = (props) => {
           </tbody>
         </table>
         <p>
-          Ikke registrert enda? Lag en spillkonto <Link to="/lobby/register">her</Link>.
+          Ikke registrert enda? Lag en spillkonto{" "}
+          <Link to="/lobby/register">her</Link>.
         </p>
         <button type="submit" className="btn btn-success">
           Login
         </button>
       </Form>
-    </React.Fragment>
+    </>
   );
 };
 
 export default Login;
 
-
-export async function loginAction({request}) {
+export async function loginAction({ request }) {
   store.dispatch(authActions.login());
 
   const formData = await request.formData();
-  const post = {
-    brukernavn: formData.get('Kallenavn'),
-    passord: formData.get('Passord'),
-  }
+  const loginData = {
+    username: formData.get("Kallenavn"),
+    password: formData.get("Passord"),
+  };
 
-  return redirect('/spill/');
-};
+  const tokens = await postNyttToken(loginData);
+
+  console.log(tokens);
+
+  return redirect("/spill/");
+}

@@ -27,7 +27,6 @@ const router = createBrowserRouter(
         path="spill/"
         element={<Spilliste />}
         loader={getSpillListe}
-        action={loginAction}
       />
       <Route
         path="spill/:spillId"
@@ -40,7 +39,7 @@ const router = createBrowserRouter(
         loader={getSpillTyper}
         action={lagSpill}
       />
-      <Route path="login" element={<Login />} />
+      <Route path="login" element={<Login />} action={loginAction} />
       <Route path="register" element={<Register />} />
       <Route path="*" element={<IkkeFunnet />} />
     </Route>
