@@ -1,5 +1,8 @@
+import axios from "axios";
+import { erOK } from "../util/posts";
+
 import React, { useEffect, useRef } from "react";
-import { Link, useNavigate, Form, redirect } from "react-router-dom";
+import { Link, useNavigate, Form, redirect, useActionData } from "react-router-dom";
 import FormElement from "../components/UI/FormElement";
 import useInput from "../hooks/use-input";
 
@@ -29,11 +32,16 @@ const Login = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const errorResponse = useActionData();
+
+  console.log("Data ", errorResponse);
+
   const {
     value: username,
     hasError: usernameHasError,
     valueInputHandler: usernameChangeHandler,
     inputBlurHandler: usernameBlurHandler,
+    errorHandler: usernameError,
     errorMsg: usernameErrorMsg,
   } = useInput(
     "Kallenavn må være > 4 tegn og bare bokstaver og tall",
@@ -45,8 +53,20 @@ const Login = (props) => {
     hasError: pass1HasError,
     valueInputHandler: pass1ChangeHandler,
     inputBlurHandler: pass1BlurHandler,
+    errorHandler: pass1Error,
     errorMsg: pass1ErrorMsg,
   } = useInput("passord > 7 tegn", validPass1);
+
+  useEffect(() => {
+    if(errorResponse && errorResponse.data) {
+      if (errorResponse.data.username) {
+        usernameError(errorResponse.data.username);
+      }
+      if (errorResponse.data.password) {
+        pass1Error(errorResponse.data.password);
+      }
+    }
+  }, [errorResponse]);
 
   const usernameInputRef = useRef();
   const passwordInputRef = useRef();
@@ -109,7 +129,25 @@ export async function loginAction({ request }) {
     password: formData.get("Passord"),
   };
 
-  const tokens = await postNyttToken(loginData);
+  try {
+    const response = await axios.post(
+      '/lobby/login/',
+      loginData,
+      {
+        headers: { "Content-Type": "application/json" },
+    });
+  } catch (error) {
+    if (error.response){
+      console.error("Error in response.", error.response)
+      return error.response;
+    } else {
+      console.error("Noe uventet skjedde!")
+    }
+  }
+
+  if (!erOK(response)) {
+    throw json({message: 'Kunne ikke logge inn spiller'}, {status: 500})
+  }
 
   console.log(tokens);
 
