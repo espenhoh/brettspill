@@ -2,7 +2,13 @@ import axios from "axios";
 import { erOK } from "../util/posts";
 
 import React, { useEffect, useRef } from "react";
-import { Link, useNavigate, Form, redirect, useActionData } from "react-router-dom";
+import {
+  Link,
+  useNavigate,
+  Form,
+  redirect,
+  useActionData,
+} from "react-router-dom";
 import FormElement from "../components/UI/FormElement";
 import useInput from "../hooks/use-input";
 
@@ -58,7 +64,7 @@ const Login = (props) => {
   } = useInput("passord > 7 tegn", validPass1);
 
   useEffect(() => {
-    if(errorResponse && errorResponse.data) {
+    if (errorResponse && errorResponse.data) {
       if (errorResponse.data.username) {
         usernameError(errorResponse.data.username);
       }
@@ -79,6 +85,10 @@ const Login = (props) => {
   return (
     <>
       <h1>Logg deg inn!</h1>
+      {errorResponse &&
+        errorResponse.status === 500 && (
+          <h2>{errorResponse.statusText}</h2>
+        )}
       <Form method="post">
         <table>
           <tbody>
@@ -130,23 +140,17 @@ export async function loginAction({ request }) {
   };
 
   try {
-    const response = await axios.post(
-      '/lobby/login/',
-      loginData,
-      {
-        headers: { "Content-Type": "application/json" },
+    const response = await axios.post("/lobby/login/", loginData, {
+      headers: { "Content-Type": "application/json" },
     });
   } catch (error) {
-    if (error.response){
-      console.error("Error in response.", error.response)
+    if (error.response) {
       return error.response;
+    } else if (error.request) {
+      return { status: 500, statusText: "Ingen kontakt" };
     } else {
-      console.error("Noe uventet skjedde!")
+      return { status: 500, statusText: "Noe uventet skjedde!" };
     }
-  }
-
-  if (!erOK(response)) {
-    throw json({message: 'Kunne ikke logge inn spiller'}, {status: 500})
   }
 
   console.log(tokens);

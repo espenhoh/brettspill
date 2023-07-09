@@ -1,6 +1,6 @@
 import axios from "axios";
 
-function erOK(response) {
+export function erOK(response) {
   return response.status >= 200 && response.status < 300;
 }
 
