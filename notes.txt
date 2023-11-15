@@ -46,19 +46,12 @@ http://brettspill.localhost:8008/lobby/
 
 # Migrations
 docker compose -f docker-compose.dev.yml exec brettspill python manage.py makemigrations
-# Sjekk SQL:
-
 
 Browser: http://brettspill.localhost:8008/brettspill/
 Shell: docker compose -f docker-compose.dev.yml exec brettspill python manage.py shell
 Superuser: docker compose -f docker-compose.dev.yml exec brettspill python manage.py createsuperuser
 
-pgadmin volume: docker volume create pgadmin_vol
 
-#Prod
-docker build -t brettspill-py:latest -f Dockerfile.prod .
-docker save -o ./brettspill-py.tar brettspill-py  
 
-docker load -i brettspill-py.tar
-
-docker-compose -f docker-compose.yml down
+#Tracke nettverksbruk
+sudo tcptrack -i enp34s0
