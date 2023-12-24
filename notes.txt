@@ -1,14 +1,21 @@
-#WSL2 dns
-#https://superuser.com/questions/1533291/how-do-i-change-the-dns-settings-for-wsl2
-sudo nano /etc/wsl.conf
-[network]
-generateResolvConf = false
-sudo rm /etc/resolv.conf
-sudo nano /etc/resolv.conf
-nameserver 8.8.8.8
-exit
-wsl --shutdown
-wsl
+#code-server 
+#upgrade by installing over old:
+curl -fsSL https://code-server.dev/install.sh | sh
+#Change port back to 8079 after reboot:
+nano ~/.config/code-server/config.yaml
+
+
+#nginx
+$ sudo systemctl start/stop/restart nginx
+
+
+#Dyndns
+sudo nano /etc/ddclient.conf
+#Endre intervall:
+sudo nano /etc/default/ddclient 
+sudo systemctl start/stop/restart ddclient.service 
+
+
 
 #Add user to docker user group
 sudo usermod -aG docker $USER
@@ -55,3 +62,4 @@ Superuser: docker compose -f docker-compose.dev.yml exec brettspill python manag
 
 #Tracke nettverksbruk
 sudo tcptrack -i enp34s0
+
