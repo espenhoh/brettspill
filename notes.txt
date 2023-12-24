@@ -7,6 +7,11 @@ nano ~/.config/code-server/config.yaml
 
 #nginx
 $ sudo systemctl start/stop/restart nginx
+# dev config.
+# 10.0.0.234:8001/dashboard
+sudo nano /etc/nginx/sites-available/brettspill.dev.conf
+#prod config. brettspill.holtebu.eu
+sudo nano /etc/nginx/sites-available/brettspill.dev.conf
 
 
 #Dyndns
@@ -15,6 +20,10 @@ sudo nano /etc/ddclient.conf
 sudo nano /etc/default/ddclient 
 sudo systemctl start/stop/restart ddclient.service 
 
+# Sambashare 
+sudo nano /etc/samba/smb.conf
+# Setup bruker med passord, koblet til systembruker:
+sudo smbpasswd -a username
 
 
 #Add user to docker user group
