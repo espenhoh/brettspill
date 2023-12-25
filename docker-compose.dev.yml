@@ -17,12 +17,12 @@ services:
     volumes:
       - ./app:/app
     networks:
-      - brettspill-backend
-      - brettspill-frontend
+      - bsp_backend
+      - bsp_frontend
     labels: # new
       - "traefik.enable=true"
       # docker inspect <container_id>
-      - "traefik.docker.network=brettspill-py_brettspill-frontend"
+      - "traefik.docker.network=frontend"
       - "traefik.http.routers.brettspill.rule=Host(`brettspill.localhost`)"
       - "traefik.http.routers.brettspill.tls=true"
     
@@ -36,7 +36,7 @@ services:
       - ../brettspill-db/postgres.conf:/etc/postgresql/postgresql.conf
       - pgdata:/var/lib/postgresql/data
     networks:
-      - brettspill-backend
+      - bsp_backend
     env_file:
       - ./env/database.env # configure postgres
 
@@ -50,14 +50,14 @@ services:
     volumes:
       - pgadmin_vol:/var/lib/pgadmin
     networks:
-      - brettspill-backend
-      - brettspill-frontend
+      - bsp_backend
+      - bsp_frontend
     expose:
       - 80
     labels: # new
       - "traefik.enable=true"
       # docker inspect <container_id>
-      - "traefik.docker.network=brettspill-py_brettspill-frontend"
+      - "traefik.docker.network=frontend"
       - "traefik.http.routers.pgadmin.rule=Host(`pgadmin.localhost`)"
       - "traefik.http.routers.pgadmin.tls=true"
 
@@ -65,7 +65,7 @@ services:
     image: traefik:v2.9.8
     container_name: "traefik"
     networks:
-      - brettspill-frontend
+      - bsp_frontend
     ports:  #"ute:inne"
       - 80:80
       - 443:443
@@ -82,9 +82,11 @@ services:
       - "traefik.http.routers.traefik.service=api@internal"
 
 networks:
-  brettspill-frontend:
+  bsp_frontend:
+    name: frontend
     driver: bridge
-  brettspill-backend:
+  bsp_backend:
+    name: backend
     driver: bridge
 
 volumes:
