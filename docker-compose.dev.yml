@@ -3,7 +3,7 @@ version: '3.7'
 services:
   brettspill:
     image: brettspill-py
-    container_name: brettspill
+    container_name: dev-brettspill
     restart: "no"
     depends_on:
       - "db"
@@ -28,7 +28,7 @@ services:
     
   db:
     image: postgres:13.3-alpine
-    container_name: brettpill_db
+    container_name: dev-brettpill_db
     restart: always
     ports:
       - "5432:5432"
@@ -63,7 +63,7 @@ services:
 
   traefik: # new
     image: traefik:v2.9.8
-    container_name: "traefik"
+    container_name: dev-traefik
     networks:
       - bsp_frontend
     ports:  #"ute:inne"
