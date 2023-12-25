@@ -24,7 +24,7 @@ services:
       # docker inspect <container_id>
       - "traefik.docker.network=frontend"
       - "traefik.http.routers.brettspill.rule=Host(`brettspill.localhost`)"
-      - "traefik.http.routers.brettspill.tls=true"
+      - "traefik.http.routers.brettspill.entryPoints=web"
     
   db:
     image: postgres:13.3-alpine
@@ -59,7 +59,7 @@ services:
       # docker inspect <container_id>
       - "traefik.docker.network=frontend"
       - "traefik.http.routers.pgadmin.rule=Host(`pgadmin.localhost`)"
-      - "traefik.http.routers.pgadmin.tls=true"
+      - "traefik.http.routers.pgadmin.entryPoints=web"
 
   traefik: # new
     image: traefik:v2.10.5
@@ -80,6 +80,7 @@ services:
       - "traefik.http.routers.traefik.rule=Host(`traefik.docker.localhost`)"
       - "traefik.http.routers.traefik.tls=true"
       - "traefik.http.routers.traefik.service=api@internal"
+      - "traefik.http.routers.traefik.entryPoints=web"
 
 networks:
   bsp_frontend:
