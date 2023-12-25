@@ -1,17 +1,12 @@
 # traefik.dev.toml
 global:
-  sendAnonymousUsage: false
+  sendAnonymousUsage: true
 # listen on port 80
 entryPoints:
+  traefik:
+    address: ":8080"
   web:
     address: ":80"
-    http:
-      redirections:
-        entryPoint:
-          to: websecure
-          scheme: https
-  websecure:
-    address: ":443"
 
 # Traefik dashboard
 api:
@@ -22,14 +17,13 @@ log:
   format: common
 
 accessLog:
+  filePath: /etc/traefik/accesslog/access.log
+  format: json
 
-# containers are not discovered automatically
+
 providers:
   docker:
     endpoint: "unix:///var/run/docker.sock"
     watch: true
+    # containers are not discovered automatically
     exposedByDefault: false
-
-  file:
-    filename: /etc/traefik/config.yml
-    watch: true
