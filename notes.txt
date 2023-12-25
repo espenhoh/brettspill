@@ -8,8 +8,8 @@ nano ~/.config/code-server/config.yaml
 #nginx
 $ sudo systemctl start/stop/restart nginx
 # dev config.
-# 10.0.0.234:8001/dashboard
-sudo nano /etc/nginx/sites-available/brettspill.dev.conf
+# 10.0.0.234:81/pgadmin
+sudo cp -f brettspill.dev.conf /etc/nginx/sites-available/brettspill.dev.conf
 #prod config. brettspill.holtebu.eu
 sudo nano /etc/nginx/sites-available/brettspill.dev.conf
 
