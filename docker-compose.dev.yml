@@ -67,18 +67,17 @@ services:
     networks:
       - bsp_frontend
     ports:  #"ute:inne"
-      - 80:80
-      - 443:443
+      - 8008:80
     volumes:
-      - "./app/.certs/:/etc/certs:ro"
       # At startup, Traefik searches for static configuration in a file named traefik.yml (or traefik.yaml or traefik.toml) in /etc/traefik/
       - "./traefik.dev.yml:/etc/traefik/traefik.yml:ro"
-      - "./traefik.routes.dev.yml:/etc/traefik/config.yml:ro"
-      - "/mnt/wsl/shared-docker/docker.sock:/var/run/docker.sock:ro"
+      - "./accesslog:/etc/traefik/accesslog"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.traefik.rule=Host(`traefik.docker.localhost`)"
-      - "traefik.http.routers.traefik.tls=true"
+      # Matches 10.0.0.234:8008/dashboard/ but not .../dashboard
+      - "traefik.http.routers.traefik.rule=Host(`10.0.0.234`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))"
+      - "traefik.http.middlewares.traefik.stripprefix.prefixes=/dashboard,/api"
       - "traefik.http.routers.traefik.service=api@internal"
       - "traefik.http.routers.traefik.entryPoints=web"
 
