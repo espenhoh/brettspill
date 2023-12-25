@@ -75,8 +75,7 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
     labels:
       - "traefik.enable=true"
-      # Matches 10.0.0.234:8008/dashboard/ but not .../dashboard
-      - "traefik.http.routers.traefik.rule=Host(`10.0.0.234`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))"
+      - "traefik.http.routers.traefik.rule=Host(`traefik.localhost`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))"
       - "traefik.http.middlewares.traefik.stripprefix.prefixes=/dashboard,/api"
       - "traefik.http.routers.traefik.service=api@internal"
       - "traefik.http.routers.traefik.entryPoints=web"
