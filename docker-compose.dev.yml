@@ -62,7 +62,7 @@ services:
       - "traefik.http.routers.pgadmin.tls=true"
 
   traefik: # new
-    image: traefik:v2.9.8
+    image: traefik:v2.10.5
     container_name: dev-traefik
     networks:
       - bsp_frontend
