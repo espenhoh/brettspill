@@ -5,6 +5,7 @@
 static
 staticfiles
 node_modules
+accesslog
 # Python virtual environment
 venv
 #Folder with environment files
