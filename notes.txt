@@ -6,12 +6,15 @@ nano ~/.config/code-server/config.yaml
 
 
 #nginx
-$ sudo systemctl start/stop/restart nginx
 # dev config.
 # 10.0.0.234:81/pgadmin
-sudo cp -f brettspill.dev.conf /etc/nginx/sites-available/brettspill.dev.conf
+# Make changes to config
+sudo cp -f nginx/brettspill.dev.conf /etc/nginx/sites-available/brettspill.dev.conf
+sudo systemctl restart nginx
 #prod config. brettspill.holtebu.eu
 sudo nano /etc/nginx/sites-available/brettspill.dev.conf
+# Liste alle siter:
+sudo nginx -T | grep server_name
 
 
 #Dyndns
