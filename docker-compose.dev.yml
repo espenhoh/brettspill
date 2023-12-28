@@ -1,3 +1,4 @@
+
 version: '3.7'
 
 services:
@@ -13,7 +14,7 @@ services:
     expose:
       - 8000
     env_file:
-      - ./env/brettspill.env
+      - ./env/brettspill.dev.env
     volumes:
       - ./app:/app
     networks:
@@ -38,7 +39,7 @@ services:
     networks:
       - bsp_backend
     env_file:
-      - ./env/database.env # configure postgres
+      - ./env/database.dev.env # configure postgres
 
   pgAdmin:
     image: dpage/pgadmin4:8.1
