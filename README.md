@@ -26,9 +26,51 @@ TODO
     * BrettspillDB
 
 ## Setup
-1. Using poetry 1.1.12 for project management, installed by powershell.
-TODO
-Password for database: Add password.py with a field DB_PASSWORD = 'your_pass' into the same directory as settings.py. This variable will be imported.
+
+### code-server
+Backend is coded with code server
+
+Upgrade by installing over old:
+
+`curl -fsSL https://code-server.dev/install.sh | sh`
+
+Change port back to 8079 after reboot:
+
+`nano ~/.config/code-server/config.yaml`
+
+code server is exposed locally through ssh tunnel together with local ports for localhost on the server. THis allows localhost to be available on the development machine.
+
+
+### Dyndns
+
+Dynamic dns handeled by dynu through holtebu.ddnsfree.com
+
+Dynmic IP updated with script:
+
+`sudo nano /etc/ddclient.conf`
+
+Change update interval:
+
+``sudo nano /etc/default/ddclient ``
+
+``sudo systemctl start/stop/restart ddclient.service ``
+
+
+
+## Install docker
+
+
+
+
+## Migrations
+docker compose -f docker-compose.dev.yml exec brettspill python manage.py makemigrations
+docker compose -f docker-compose.dev.yml exec brettspill python manage.py migrate
+## Show currently exposed endpoints
+docker compose -f docker-compose.dev.yml exec brettspill python manage.py show_urls
+
+Shell: docker compose -f docker-compose.dev.yml exec brettspill python manage.py shell
+Superuser: docker compose -f docker-compose.dev.yml exec brettspill python manage.py createsuperuser
+
 
 ## Code Examples
 Show examples of usage:
