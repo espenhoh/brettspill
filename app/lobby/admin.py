@@ -41,4 +41,3 @@ class SpillerAdmin(UserAdmin):
 admin.site.register(Spiller, SpillerAdmin)
 # admin.site.register(Spill)
 admin.site.register(SpillerISpill)
-

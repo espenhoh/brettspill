@@ -37,4 +37,4 @@ urlpatterns = [
     path('', include(router.urls)),
     # path('home/', RedirectView.as_view(url='/static/lobby/index.html')),
     # re_path(r'^home/(?P<path>.*)$', RedirectView.as_view(url='static/lobby/index.html')),
-] 
+]

@@ -61,4 +61,3 @@ class SpillViewSet(viewsets.ModelViewSet):
             for spilltype in spilltyper
         ]
         return Response(my_choices_dict)
-

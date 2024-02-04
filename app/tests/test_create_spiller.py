@@ -78,3 +78,4 @@ def test_spiller_is_in_spiller_group(spiller_A: Spiller) -> None:
 
 def test_should_create_two_users(spiller_A: Spiller, spiller_B: Spiller) -> None:
     assert spiller_A.pk != spiller_B.pk
+    

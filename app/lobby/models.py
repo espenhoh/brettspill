@@ -54,4 +54,3 @@ class SpillerISpill(models.Model):
 
     class Meta:
         unique_together = ['spiller', 'spill']
-

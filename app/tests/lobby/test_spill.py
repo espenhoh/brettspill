@@ -1,7 +1,6 @@
 import pytz
 from django.test import TestCase
 from lobby.models import Spiller, Spill
-from lobby.models import Spill
 from datetime import datetime
 
 
