@@ -60,7 +60,8 @@ Change update interval:
 ## Install docker
 
 
-
+## Run dev environment
+docker compose -f docker-compose.dev.yml up
 
 ## Migrations
 docker compose -f docker-compose.dev.yml exec brettspill python manage.py makemigrations

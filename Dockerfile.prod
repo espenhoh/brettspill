@@ -6,7 +6,7 @@
 ###########
 
 # pull official base image
-FROM python:3.9.7-slim as builder
+FROM python:3.12.1-slim as builder
 
 
 # set environment variables
@@ -16,14 +16,14 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
   PIP_NO_CACHE_DIR=off \
   PIP_DISABLE_PIP_VERSION_CHECK=on \
   PIP_DEFAULT_TIMEOUT=100 \
-  POETRY_VERSION=1.1.12
+  POETRY_VERSION=1.7.1
 
 RUN mkdir /app
 WORKDIR /app
 
 # lint
 RUN pip install --upgrade pip
-RUN pip install flake8==3.9.1
+RUN pip install flake8==7.0.0
 COPY /app /app
 RUN flake8 --ignore=E501,F401 .
 
@@ -44,7 +44,7 @@ RUN poetry build
 #########
 
 # pull official base image
- FROM python:3.9.5-slim
+ FROM python:3.12.1-slim
 
 # create the appropriate directories
 ENV HOME=/home/app
