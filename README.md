@@ -68,6 +68,8 @@ docker compose -f docker-compose.dev.yml exec brettspill python manage.py makemi
 docker compose -f docker-compose.dev.yml exec brettspill python manage.py migrate
 ## Show currently exposed endpoints
 docker compose -f docker-compose.dev.yml exec brettspill python manage.py show_urls
+## Change passowrd of player
+docker compose -f docker-compose.dev.yml exec brettspill python manage.py changepassword <player>
 
 Shell: docker compose -f docker-compose.dev.yml exec brettspill python manage.py shell
 Superuser: docker compose -f docker-compose.dev.yml exec brettspill python manage.py createsuperuser

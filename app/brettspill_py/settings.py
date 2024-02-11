@@ -53,7 +53,6 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt.token_blacklist',
     'corsheaders',  # Allows Cross-Origin Resource Sharing
     'django_extensions',
-    'webpack_loader',
     'frontend',
     'lobby.apps.LobbyConfig',
     'gomoku.apps.GomokuConfig',
@@ -168,7 +167,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_ROOT = BASE_DIR / 'staticfiles/'
 
 # compresses your files and hashes them to unique names, so they can safely be cached forever
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'

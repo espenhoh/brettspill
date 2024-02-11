@@ -2,7 +2,7 @@ GET https://brettspill.localhost/
 
 ###
 
-POST https://brettspill.localhost/lobby/register/
+POST http://brettspill.localhost:8008/lobby/register/
 content-type: application/json
 
 {
