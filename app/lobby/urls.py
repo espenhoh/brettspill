@@ -25,7 +25,7 @@ from rest_framework_simplejwt.views import (
 )
 
 router = OptionalSlashRouter()
-router.register(r'spillere', views.SpillerViewSet)
+router.register(r'spiller', views.SpillerViewSet)
 # router.register(r'groups', views.GroupViewSet)
 router.register(r'spill', views.SpillViewSet, basename='spill')
 

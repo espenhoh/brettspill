@@ -1,4 +1,4 @@
-GET https://brettspill.localhost/
+GET http://brettspill.localhost:8008/
 
 ###
 
@@ -14,20 +14,26 @@ content-type: application/json
 
 ###
 
-POST https://brettspill.localhost/lobby/spill/
+POST http://brettspill.localhost:8008/lobby/login/
 content-type: application/json
 
 {
-  "spill_navn": ,
+  "username": "sampleuser",
+  "password": "Testpassord123"
+}
+
+###
+GET http://brettspill.localhost:8008/lobby/spiller/1
+
+###
+
+POST http://brettspill.localhost:8008/lobby/spill/
+content-type: application/json
+
+{
+  "spill_navn": "Testspill",
   "spill_type": "MPOL"
 }
 
 ### Login, 
 
-POST https://brettspill.localhost/lobby/login/
-content-type: application/json
-
-{
-  "username": "admin",
-  "password": "admin"
-}

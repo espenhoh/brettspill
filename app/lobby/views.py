@@ -39,7 +39,7 @@ class SpillerViewSet(viewsets.ModelViewSet):
     """
     queryset = Spiller.objects.all().order_by('-date_joined')
     serializer_class = SpillerSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = []
 
 
 class SpillViewSet(viewsets.ModelViewSet):
